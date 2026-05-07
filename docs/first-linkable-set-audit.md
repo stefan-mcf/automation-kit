@@ -8,9 +8,9 @@ The Automation Factory first public case-study set is live, reconciled, pushed, 
 
 ## Verified public set
 
-| Repo | GitHub visibility | HEAD | CI/check result | Role |
+| Repo | GitHub visibility | Verification anchor | CI/check result | Role |
 |---|---|---:|---|---|
-| `automation-kit` | Public | `9a850ec` | `regression` success | Core runtime: CLI, API/OpenAPI, MCP, Docker, fixture-safe patterns. |
+| `automation-kit` | Public | `9a850ec` plus docs-only audit commits | `regression` success | Core runtime: CLI, API/OpenAPI, MCP, Docker, fixture-safe patterns. |
 | `api-webhook-bridge` | Public | `0bc8e02` | `test` success | Universal API/webhook bridge case study. |
 | `automation-debugger` | Public | `0ace619` | `test` success | Broken automation diagnosis/replay case study. |
 | `sheets-airtable-sync` | Public | `4743019` | `test` success | Sheets/Airtable validation, dedupe, mock upsert case study. |
@@ -31,7 +31,7 @@ The older checkpoints that described the first set as private are superseded by 
 Local gates:
 
 - `automation-kit`: `pytest` 152 passed, Ruff passed, mypy passed, `validate-all` 7/7 passed, `mcp-validate` passed.
-- `api-webhook-bridge`: `pytest` 25 passed, Ruff passed, mypy passed, sandbox walkthrough passed, JSON scan passed.
+- `api-webhook-bridge`: `pytest` 25 passed, Ruff passed, mypy passed, sandbox walkthrough passed.
 - `automation-debugger`: `pytest` 44 passed, Ruff passed, mypy passed, `scripts/verify_examples.py` verified 32 JSON files.
 - `sheets-airtable-sync`: `pytest` 30 passed, Ruff passed, mypy passed, `scripts/verify_examples.py` passed, `./executor.sh verify` passed.
 
@@ -39,7 +39,7 @@ Remote gates:
 
 - Local HEAD equals `origin/main` in each first-set repo.
 - GitHub visibility is public for each first-set repo.
-- GitHub Actions/check-runs are successful for each first-set HEAD listed above.
+- GitHub Actions/check-runs are successful for each first-set repo verification anchor above. Docs-only audit commits in `automation-kit` may advance that repo's HEAD after the anchor without changing the product code baseline.
 
 ## Boundaries still in force
 
