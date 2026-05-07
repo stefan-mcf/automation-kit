@@ -10,7 +10,7 @@ The Automation Factory first public case-study set is live, reconciled, pushed, 
 
 | Repo | GitHub visibility | HEAD | CI/check result | Role |
 |---|---|---:|---|---|
-| `automation-kit` | Public | `463c490` | `regression` success | Core runtime: CLI, API/OpenAPI, MCP, Docker, fixture-safe patterns. |
+| `automation-kit` | Public | `9a850ec` | `regression` success | Core runtime: CLI, API/OpenAPI, MCP, Docker, fixture-safe patterns. |
 | `api-webhook-bridge` | Public | `0bc8e02` | `test` success | Universal API/webhook bridge case study. |
 | `automation-debugger` | Public | `0ace619` | `test` success | Broken automation diagnosis/replay case study. |
 | `sheets-airtable-sync` | Public | `4743019` | `test` success | Sheets/Airtable validation, dedupe, mock upsert case study. |
