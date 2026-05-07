@@ -20,7 +20,7 @@ This is intentional. The evidence should not look like seven unrelated half-fram
 | Priority | Repo | Role | Promotion target |
 |---|---|---|---|
 | 1 | `api-webhook-bridge` | Universal API/webhook bridge case study | First flagship spoke; see `docs/case-studies/api-webhook-bridge.md`. |
-| 2 | `automation-debugger` | Broken automation diagnosis and replay proof | Second complete spoke. |
+| 2 | `automation-debugger` | Broken automation diagnosis and replay proof | Second flagship spoke; see `docs/case-studies/automation-debugger.md`. |
 | 3 | `sheets-airtable-sync` | Sheets/Airtable validation, dedupe, and sync proof | Third complete spoke. |
 | 4 | `lowcode-ai-workflows` | Controlled AI steps inside auditable low-code-style workflows | Promote after first three spokes. |
 | 5 | `invoice-workflow-extractor` | Document/invoice extraction and validation workflow | Backlog spoke. |

@@ -21,8 +21,11 @@ except ImportError as exc:  # pragma: no cover - exercised only when tooling is 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREENSHOT_DIR = ROOT / "docs" / "screenshots"
-CASE_STUDY_URL = "https://github.com/stefan-mcf/api-webhook-bridge"
-CASE_STUDY_PANEL_TITLE = "Case Study"
+CASE_STUDY_URLS = (
+    "https://github.com/stefan-mcf/api-webhook-bridge",
+    "https://github.com/stefan-mcf/automation-debugger",
+)
+CASE_STUDY_PANEL_TITLE = "Case Studies"
 PANEL_HEADING_FONT_SIZE = 25
 PANEL_HEADING_Y_OFFSET = 22
 PANEL_HEADER_STRIPE_TOP_OFFSET = 66
@@ -294,7 +297,7 @@ def render_case_study_link(path: Path) -> None:
     draw_text_checked(
         draw,
         (88, 142),
-        "Reusable core linked to a focused API/webhook case study.",
+        "Reusable core linked to focused public case-study repositories.",
         fill=(150, 168, 193),
         text_font=font(25),
         bounds=(88, 134, width - 88, 184),
@@ -314,14 +317,14 @@ def render_case_study_link(path: Path) -> None:
         color=(78, 156, 255),
     )
     right = Panel(
-        heading="api-webhook-bridge",
-        title="Public case-study repo",
+        heading="case-study spokes",
+        title="Public focused repos",
         bullets=(
-            "FastAPI webhook bridge",
-            "Mapping, idempotency, audit, and dead-letter handling",
-            "Sandbox JSON responses and OpenAPI docs",
-            "Screenshot evidence included",
-            "Fixture-safe; no live external-service connections",
+            "api-webhook-bridge: safe API/webhook build path",
+            "automation-debugger: failed automation diagnosis path",
+            "Synthetic fixtures, local APIs, tests, and screenshots",
+            "Spoke evidence stays in each repository",
+            "Fixture-safe; no live service calls",
         ),
         color=(61, 220, 151),
     )
@@ -335,7 +338,7 @@ def render_case_study_link(path: Path) -> None:
     draw_text_checked(
         draw,
         (128, 834),
-        "Public repository",
+        "Public repositories",
         fill=(150, 168, 193),
         text_font=font(22, bold=True),
         bounds=(128, 826, 760, 860),
@@ -344,12 +347,12 @@ def render_case_study_link(path: Path) -> None:
     draw_wrapped_text_checked(
         draw,
         (128, 870),
-        CASE_STUDY_URL,
+        " • ".join(CASE_STUDY_URLS),
         fill=(255, 255, 255),
-        text_font=font(25, bold=True),
-        max_width=650,
-        max_bottom=910,
-        label="public repository URL",
+        text_font=font(20, bold=True),
+        max_width=690,
+        max_bottom=922,
+        label="public repository URLs",
         line_gap=4,
     )
     draw_text_checked(

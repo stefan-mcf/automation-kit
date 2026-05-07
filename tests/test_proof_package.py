@@ -28,6 +28,7 @@ REQUIRED_DOCS = [
     ROOT / "docs" / "mcp.md",
     ROOT / "docs" / "deployment.md",
     ROOT / "docs" / "case-studies" / "api-webhook-bridge.md",
+    ROOT / "docs" / "case-studies" / "automation-debugger.md",
     ROOT / ".github" / "workflows" / "ci.yml",
     ROOT / "LICENSE",
 ]
@@ -101,7 +102,7 @@ def test_case_study_visual_title_is_professional_and_reproducible() -> None:
     assert "### Case study" not in readme
     assert "Case study proof" in readme
     assert "Case study proof" in screenshots
-    assert "CASE_STUDY_PANEL_TITLE = \"Case Study\"" in renderer
+    assert "CASE_STUDY_PANEL_TITLE = \"Case Studies\"" in renderer
     assert "05-case-study-link.png" in renderer
     assert "draw_text_checked" in renderer
     assert "text overflow" in renderer
@@ -137,7 +138,7 @@ def test_case_study_card_headings_clear_the_colored_header_stripe() -> None:
     allowed_bottom = stripe_top - PANEL_HEADING_STRIPE_CLEARANCE
     text_y = panel_top + PANEL_HEADING_Y_OFFSET
 
-    for heading in ["automation-kit", "api-webhook-bridge"]:
+    for heading in ["automation-kit", "case-study spokes"]:
         bbox = draw.textbbox((132, text_y), heading, font=heading_font)
         assert bbox[3] <= allowed_bottom, (
             f"{heading!r} descends into the colored header stripe: "
@@ -154,6 +155,7 @@ def test_readme_links_to_public_package_and_verified_commands() -> None:
         "docs/screenshots/",
         "docs/proof-spoke-architecture.md",
         "docs/case-studies/api-webhook-bridge.md",
+        "docs/case-studies/automation-debugger.md",
         "docs/api.md",
         "docs/mcp.md",
         "docs/deployment.md",
@@ -184,6 +186,7 @@ def test_public_facing_docs_avoid_unfinished_language_and_private_surface() -> N
         ROOT / "docs" / "proof-spoke-architecture.md",
         ROOT / "docs" / "public-readiness.md",
         ROOT / "docs" / "case-studies" / "api-webhook-bridge.md",
+        ROOT / "docs" / "case-studies" / "automation-debugger.md",
         ROOT / "docs" / "screenshots" / "README.md",
         ROOT / "patterns" / "product-creative-pack" / "README.md",
     ]
@@ -199,17 +202,24 @@ def test_public_facing_docs_avoid_unfinished_language_and_private_surface() -> N
 
 
 def test_public_case_study_link_is_explicit_without_duplicate_screenshots() -> None:
-    case_study = read(ROOT / "docs" / "case-studies" / "api-webhook-bridge.md")
+    api_case_study = read(ROOT / "docs" / "case-studies" / "api-webhook-bridge.md")
+    debugger_case_study = read(ROOT / "docs" / "case-studies" / "automation-debugger.md")
     screenshots = read(ROOT / "docs" / "screenshots" / "README.md")
     readme = read(ROOT / "README.md")
 
-    for content in [case_study, screenshots, readme]:
-        assert "api-webhook-bridge" in content
-        assert "https://github.com/stefan-mcf/api-webhook-bridge" in content
+    expected = {
+        "api-webhook-bridge": "https://github.com/stefan-mcf/api-webhook-bridge",
+        "automation-debugger": "https://github.com/stefan-mcf/automation-debugger",
+    }
+    for repo, url in expected.items():
+        for content in [screenshots, readme]:
+            assert repo in content
+            assert url in content
 
     assert "full spoke screenshot package stays in the spoke repo" in screenshots
-    assert "does not require live external-service credentials" in case_study
-    assert "fixture-safe" in case_study
+    for case_study in [api_case_study, debugger_case_study]:
+        assert "does not require live external-service credentials" in case_study
+        assert "fixture-safe" in case_study
 
 
 def test_local_deployment_proof_is_cloud_free_and_smokeable() -> None:

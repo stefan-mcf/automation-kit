@@ -8,7 +8,7 @@ The committed visual assets are PNG proof panels generated from local repository
 | [`02-pattern-output.png`](02-pattern-output.png) | Pattern outputs are deterministic and reviewable. |
 | [`03-architecture.png`](03-architecture.png) | The package separates workflow contracts, Python equivalents, fixtures, mock clients, local API, MCP controls, and gated live clients. |
 | [`04-quality-gates.png`](04-quality-gates.png) | The project has passing test, lint, type, pattern-validation, Docker, and CI-style gates. |
-| [`05-case-study-link.png`](05-case-study-link.png) | Automation Kit is the framework layer and [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) is the public case-study repository; the full spoke screenshot package stays in the spoke repo. |
+| [`05-case-study-link.png`](05-case-study-link.png) | Automation Kit is the framework layer; [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) and [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) are public case-study repositories; each full spoke screenshot package stays in the spoke repo. |
 
 ## Regeneration
 

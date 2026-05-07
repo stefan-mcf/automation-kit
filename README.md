@@ -28,7 +28,7 @@ Every pattern lives under `patterns/<name>/` with:
 
 Automation Kit is the core framework. Companion case-study repositories show this toolkit applied to one concrete workflow at a time. A case study should stay thin: use Automation Kit for reusable pattern behavior, add only the workflow-specific mapping or API surface, and prove the result with synthetic fixtures, deterministic outputs, tests, evidence, and screenshots.
 
-The public API/webhook case study is [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge). See [`docs/case-studies/api-webhook-bridge.md`](docs/case-studies/api-webhook-bridge.md) for the Automation Kit relationship.
+Public companion case studies now include [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) for safe API/webhook builds and [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) for broken automation diagnosis and replay. See [`docs/case-studies/api-webhook-bridge.md`](docs/case-studies/api-webhook-bridge.md) and [`docs/case-studies/automation-debugger.md`](docs/case-studies/automation-debugger.md) for the Automation Kit relationship.
 
 ## Quick start
 
@@ -110,6 +110,7 @@ The container entrypoint is `auto-kit`, so arguments after the image name are CL
 - [`docs/deployment.md`](docs/deployment.md) — local Docker Compose API mode, healthcheck, and cloud-free deployment boundary.
 - [`docs/proof-spoke-architecture.md`](docs/proof-spoke-architecture.md) — core/case-study architecture and readiness contract.
 - [`docs/case-studies/api-webhook-bridge.md`](docs/case-studies/api-webhook-bridge.md) — public API/webhook case study relationship.
+- [`docs/case-studies/automation-debugger.md`](docs/case-studies/automation-debugger.md) — public automation repair/debug case study relationship.
 - [`docs/screenshots/`](docs/screenshots/) — visual proof panels for CLI validation, pattern outputs, architecture, quality gates, and the case-study link.
 - [`docs/public-readiness.md`](docs/public-readiness.md) — public-surface safety checks and current gate status.
 - [`EVIDENCE.md`](EVIDENCE.md) — latest verification command bundle.
@@ -117,7 +118,7 @@ The container entrypoint is `auto-kit`, so arguments after the image name are CL
 ## Evidence package
 
 Below is the local proof-of-concept evidence for Automation Kit: CLI validation, pattern
-outputs, architecture, quality gates, and the case-study relationship.
+outputs, architecture, quality gates, and the case-study relationships.
 
 [![CLI validation proof](docs/screenshots/01-cli-validation.png)](docs/screenshots/01-cli-validation.png)
 

@@ -14,8 +14,8 @@ Branch: `main`
 | API proof surface | FastAPI/OpenAPI local wrapper for fixture-safe pattern runs |
 | MCP proof surface | Fixture-safe sector/capability registry and MCP handler surface |
 | Deployment proof | Docker image plus local Docker Compose API mode |
-| Public companion case study | `api-webhook-bridge` |
-| Test suite | 147 passed, 1 known httpx deprecation warning |
+| Public companion case studies | `api-webhook-bridge`, `automation-debugger` |
+| Test suite | 152 passed, 1 known httpx deprecation warning |
 | Ruff | Clean |
 | Mypy src/ | Clean |
 | CLI validation | 7/7 passed |
@@ -67,6 +67,7 @@ The MCP surface exposes stable verbs for health, pattern discovery, validation, 
 | Repo | Current role | Evidence |
 |---|---|---|
 | [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) | API/webhook bridge case study | fixture-safe event mapping, Airtable-style upsert, idempotency, audit/dead-letter proof, tests, screenshots, sandbox responses, case study |
+| [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) | Automation repair/debug case study | failed-event diagnosis, platform-export normalization, safe replay/refusal, duplicate guards, generated fix reports, local API, tests, screenshots, case study |
 
 Automation Kit keeps the reusable engine layer. Companion case studies keep workflow-specific mapping, API, and evidence packages.
 
@@ -115,4 +116,4 @@ Committed proof panels live under `docs/screenshots/`:
 - `04-quality-gates.png`
 - `05-case-study-link.png` — case-study proof panel
 
-The full `api-webhook-bridge` screenshot package stays in that case-study repository; Automation Kit links to it rather than duplicating it.
+The full `api-webhook-bridge` and `automation-debugger` screenshot packages stay in those case-study repositories; Automation Kit links to them rather than duplicating them.
