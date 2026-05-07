@@ -1,0 +1,37 @@
+[
+  {
+    "id": "email_001",
+    "from": "alice@acmecorp.com",
+    "subject": "Help with account setup",
+    "body": "Hi, How do I set up two-factor authentication? I followed the setup guide but got an error. Can you help?",
+    "received_at": "2025-04-01T08:30:00Z"
+  },
+  {
+    "id": "email_002",
+    "from": "bob@globex.io",
+    "subject": "Pricing plans",
+    "body": "Hello, I'm interested in your pricing plans. How much does the pro plan cost? Do you offer a trial?",
+    "received_at": "2025-04-01T09:15:00Z"
+  },
+  {
+    "id": "email_003",
+    "from": "charlie@initech.org",
+    "subject": "Invoice question",
+    "body": "Hi, I need a copy of my latest invoice. I was charged twice this month and need a refund.",
+    "received_at": "2025-04-01T10:00:00Z"
+  },
+  {
+    "id": "email_004",
+    "from": "spammer@example.com",
+    "subject": "Viagra for sale",
+    "body": "Limited offer! Buy now and get 50% off. Congratulations, you've been selected!",
+    "received_at": "2025-04-01T11:00:00Z"
+  },
+  {
+    "id": "email_005",
+    "from": "dave@unknown.org",
+    "subject": "Hey there",
+    "body": "Just saying hello. Hope you're well.",
+    "received_at": "2025-04-01T12:00:00Z"
+  }
+]

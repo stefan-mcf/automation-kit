@@ -1,0 +1,6 @@
+[
+  {"company": "Acme Corp", "domain": "acmecorp.com", "contact_name": "John Smith", "email": "john@acmecorp.com"},
+  {"company": "Globex Inc.", "domain": "globex.io", "contact_name": "Jane Doe", "email": "jane@globex.io"},
+  {"company": "Initech", "domain": "initech.org", "contact_name": "Bill Lumbergh", "email": "bill@initech.org"},
+  {"company": "Unknown Corp", "domain": "unknowncorp.xyz", "contact_name": "Alice Wonder", "email": "alice@unknowncorp.xyz"}
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "event_type": "low_inventory",
+    "severity": "warning",
+    "item": "Widget A",
+    "message": "Widget A inventory is running low"
+  },
+  {
+    "event_type": "failed_payment",
+    "severity": "critical",
+    "customer": "Acme Corp",
+    "message": "Payment failed for Acme Corp"
+  },
+  {
+    "event_type": "high_priority_support",
+    "severity": "critical",
+    "ticket": "T-123",
+    "message": "Urgent support ticket T-123 requires immediate attention"
+  },
+  {
+    "event_type": "deployment_success",
+    "severity": "info",
+    "service": "api",
+    "message": "api deployed successfully"
+  },
+  {
+    "event_type": "low_inventory",
+    "severity": "warning",
+    "item": "Widget A",
+    "message": "Widget A inventory is running low"
+  }
+]

@@ -1,0 +1,7 @@
+name,email,company,phone,source
+Alice Johnson,alice@acmecorp.com,Acme Corp,+1-555-0101,website
+Bob Smith,bob@globex.io,Globex Inc.,+1-555-0102,referral
+Charlie Brown,charlie@initech.org,Initech,+1-555-0103,ad
+Diana Prince,diana@acmecorp.com,Acme Corp,+1-555-0104,event
+Alice Johnson,alice@acmecorp.com,Acme Corp Updated,+1-555-0105,email
+Eve Adams,eve@initech.org,Initech,+1-555-0106,partner

@@ -1,0 +1,114 @@
+{
+  "name": "Product Creative Pack",
+  "description": "Mock-first ecommerce creative workflow: product brief, prompt pack, ComfyUI job manifest, deterministic mock assets, and human review stop.",
+  "nodes": [
+    {
+      "name": "Product Brief Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "position": [0, 0],
+      "parameters": {
+        "method": "POST",
+        "path": "product-creative-pack",
+        "description": "Receives synthetic ecommerce product brief and placeholder image refs."
+      }
+    },
+    {
+      "name": "Validate Required Fields",
+      "type": "n8n-nodes-base.code",
+      "position": [260, 0],
+      "parameters": {
+        "required_fields": [
+          "product_name",
+          "category",
+          "target_audience",
+          "campaign_goal",
+          "brand_voice",
+          "source_images",
+          "required_aspect_ratios",
+          "negative_prompt_constraints",
+          "manual_approval_target"
+        ]
+      }
+    },
+    {
+      "name": "Generate Prompt Pack",
+      "type": "n8n-nodes-base.code",
+      "position": [520, 0],
+      "parameters": {
+        "mode": "deterministic",
+        "includes_negative_prompt_constraints": true
+      }
+    },
+    {
+      "name": "Prepare ComfyUI Job Manifest",
+      "type": "n8n-nodes-base.code",
+      "position": [780, 0],
+      "parameters": {
+        "mode": "mock",
+        "execute_live": false,
+        "workflow_template": "comfyui_workflow_api.json"
+      }
+    },
+    {
+      "name": "Collect Mock Assets",
+      "type": "n8n-nodes-base.code",
+      "position": [1040, 0],
+      "parameters": {
+        "asset_uri_scheme": "mock://",
+        "file_created": false
+      }
+    },
+    {
+      "name": "Build Review Packet",
+      "type": "n8n-nodes-base.code",
+      "position": [1300, 0],
+      "parameters": {
+        "approval_required": true,
+        "publish_action": "blocked_until_human_approval"
+      }
+    },
+    {
+      "name": "Manual Approval Stop",
+      "type": "n8n-nodes-base.noOp",
+      "position": [1560, 0],
+      "parameters": {
+        "stop_boundary": "human_review_required",
+        "no_auto_publish": true,
+        "no_client_delivery": true
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": "Product Brief Trigger",
+      "target": "Validate Required Fields"
+    },
+    {
+      "source": "Validate Required Fields",
+      "target": "Generate Prompt Pack"
+    },
+    {
+      "source": "Generate Prompt Pack",
+      "target": "Prepare ComfyUI Job Manifest"
+    },
+    {
+      "source": "Prepare ComfyUI Job Manifest",
+      "target": "Collect Mock Assets"
+    },
+    {
+      "source": "Collect Mock Assets",
+      "target": "Build Review Packet"
+    },
+    {
+      "source": "Build Review Packet",
+      "target": "Manual Approval Stop"
+    }
+  ],
+  "metadata": {
+    "pattern": "product-creative-pack",
+    "live_services_required": false,
+    "comfyui_mode": "mock-first",
+    "tranche": 8,
+    "import_note": "n8n-style workflow artifact for review; validate before live n8n import."
+  }
+}

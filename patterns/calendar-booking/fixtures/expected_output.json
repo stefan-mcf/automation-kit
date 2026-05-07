@@ -1,0 +1,25 @@
+{
+  "available": false,
+  "suggested_slots": [
+    {
+      "date": "2025-06-15",
+      "start_time": "15:00",
+      "end_time": "16:00",
+      "timezone": "America/New_York"
+    },
+    {
+      "date": "2025-06-15",
+      "start_time": "13:00",
+      "end_time": "14:00",
+      "timezone": "America/New_York"
+    },
+    {
+      "date": "2025-06-16",
+      "start_time": "14:00",
+      "end_time": "15:00",
+      "timezone": "America/New_York"
+    }
+  ],
+  "event": null,
+  "conflict_reason": "Time slot overlaps with existing event: Existing Meeting"
+}

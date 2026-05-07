@@ -1,0 +1,60 @@
+{
+  "pattern_name": "webhook-router",
+  "status": "passed",
+  "output": {
+    "routed_events": [
+      {
+        "event_id": "ORD-123",
+        "event_type": "order.created",
+        "route": "order_handler",
+        "handler": "order_handler",
+        "handled": true,
+        "reason": null
+      },
+      {
+        "event_id": "lead-Alice",
+        "event_type": "lead.captured",
+        "route": "lead_handler",
+        "handler": "lead_handler",
+        "handled": true,
+        "reason": null
+      },
+      {
+        "event_id": "TK-456",
+        "event_type": "ticket.created",
+        "route": "support_handler",
+        "handler": "support_handler",
+        "handled": true,
+        "reason": null
+      }
+    ],
+    "dead_letter": [
+      {
+        "event_id": "evt-003",
+        "event_type": "unknown.action",
+        "route": "dead-letter",
+        "handler": null,
+        "handled": false,
+        "reason": "unknown_event_type"
+      },
+      {
+        "event_id": "evt-004",
+        "event_type": null,
+        "route": "dead-letter",
+        "handler": null,
+        "handled": false,
+        "reason": "missing_event_type"
+      }
+    ],
+    "total": 5
+  },
+  "validation_summary": {
+    "passed": true,
+    "fixture_name": "default",
+    "errors": [],
+    "input_received": true
+  },
+  "warnings": [],
+  "fixture_safe": true,
+  "live_services_used": false
+}

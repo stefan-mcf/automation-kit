@@ -1,0 +1,39 @@
+{
+  "classified_emails": [
+    {
+      "id": "email_001",
+      "intent": "support",
+      "confidence": 1.0,
+      "queue": "support",
+      "summary": "Routed to support: \"Help with account setup\""
+    },
+    {
+      "id": "email_002",
+      "intent": "sales",
+      "confidence": 1.0,
+      "queue": "sales",
+      "summary": "Routed to sales: \"Pricing plans\""
+    },
+    {
+      "id": "email_003",
+      "intent": "billing",
+      "confidence": 1.0,
+      "queue": "billing",
+      "summary": "Routed to billing: \"Invoice question\""
+    },
+    {
+      "id": "email_004",
+      "intent": "spam",
+      "confidence": 1.0,
+      "queue": "spam",
+      "summary": "Routed to spam: unsolicited advertisement detected \u2014 \"Viagra for sale\""
+    },
+    {
+      "id": "email_005",
+      "intent": "unknown",
+      "confidence": 0.0,
+      "queue": "human_review",
+      "summary": "Routed to human_review: low confidence (no actionable keywords detected) \u2014 \"Hey there\""
+    }
+  ]
+}

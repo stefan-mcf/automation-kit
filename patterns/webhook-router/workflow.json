@@ -1,0 +1,97 @@
+{
+  "name": "Webhook Router",
+  "description": "Route incoming webhooks by event type to type-specific handlers. Unrouteable payloads (unknown type, missing type, missing required fields) are sent to a dead-letter queue.",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "position": [0, 0],
+      "parameters": {
+        "path": "webhook-router",
+        "method": "POST",
+        "options": {}
+      }
+    },
+    {
+      "name": "Payload Inspect",
+      "type": "n8n-nodes-base.function",
+      "position": [300, 0],
+      "parameters": {
+        "functionCode": "// Inspect payload and extract event type\nconst payload = $input.first().json;\nconst eventType = payload.type;\n\nif (!eventType) {\n  return [{ json: { ...payload, _error: 'missing_event_type' } }];\n}\n\nreturn [{ json: { ...payload, _event_type: eventType } }];"
+      }
+    },
+    {
+      "name": "Switch by Event Type",
+      "type": "n8n-nodes-base.switch",
+      "position": [600, 0],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json._event_type }}",
+        "rules": [
+          {"value": "order.created", "output": "order_handler"},
+          {"value": "lead.captured", "output": "lead_handler"},
+          {"value": "ticket.created", "output": "support_handler"}
+        ],
+        "fallbackOutput": "dead_letter"
+      }
+    },
+    {
+      "name": "Order Handler",
+      "type": "n8n-nodes-base.function",
+      "position": [900, -200],
+      "parameters": {
+        "functionCode": "// Process order.created events\nconst payload = $input.first().json;\nconst { order_id, amount } = payload;\n\nif (!order_id || !amount) {\n  return [{ json: { ...payload, _error: 'missing_required_fields', _reason: 'order_id and amount required' } }];\n}\n\nreturn [{ json: { event_id: order_id, event_type: 'order.created', route: 'order_handler', handler: 'order_handler', handled: true } }];"
+      }
+    },
+    {
+      "name": "Lead Handler",
+      "type": "n8n-nodes-base.function",
+      "position": [900, 0],
+      "parameters": {
+        "functionCode": "// Process lead.captured events\nconst payload = $input.first().json;\nconst { name, email } = payload;\n\nif (!name || !email) {\n  return [{ json: { ...payload, _error: 'missing_required_fields', _reason: 'name and email required' } }];\n}\n\nreturn [{ json: { event_id: 'lead-' + name, event_type: 'lead.captured', route: 'lead_handler', handler: 'lead_handler', handled: true } }];"
+      }
+    },
+    {
+      "name": "Support Handler",
+      "type": "n8n-nodes-base.function",
+      "position": [900, 200],
+      "parameters": {
+        "functionCode": "// Process ticket.created events\nconst payload = $input.first().json;\nconst { ticket_id, priority } = payload;\n\nif (!ticket_id || !priority) {\n  return [{ json: { ...payload, _error: 'missing_required_fields', _reason: 'ticket_id and priority required' } }];\n}\n\nreturn [{ json: { event_id: ticket_id, event_type: 'ticket.created', route: 'support_handler', handler: 'support_handler', handled: true } }];"
+      }
+    },
+    {
+      "name": "Dead-Letter Queue",
+      "type": "n8n-nodes-base.function",
+      "position": [900, 400],
+      "parameters": {
+        "functionCode": "// Collect unrouteable payloads to dead-letter queue\nconst payload = $input.first().json;\nconst eventType = payload._event_type || null;\nconst reason = payload._error || 'unknown_event_type';\n\nreturn [{ json: { event_id: 'dlq-' + Date.now(), event_type: eventType, route: 'dead-letter', handler: null, handled: false, reason } }];"
+      }
+    },
+    {
+      "name": "Router Summary",
+      "type": "n8n-nodes-base.function",
+      "position": [1200, 100],
+      "parameters": {
+        "functionCode": "// Aggregate all results into final summary\nconst allItems = $input.all();\nconst routed = allItems.filter(i => i.json.handled === true);\nconst dead = allItems.filter(i => i.json.handled === false);\n\nreturn [{\n  json: {\n    routed_events: routed.map(i => i.json),\n    dead_letter: dead.map(i => i.json),\n    total: allItems.length\n  }\n}];"
+      }
+    }
+  ],
+  "connections": [
+    {"source": "Webhook Trigger", "target": "Payload Inspect"},
+    {"source": "Payload Inspect", "target": "Switch by Event Type"},
+    {"source": "Switch by Event Type", "target": "Order Handler", "source_output": "order_handler", "target_input": "main"},
+    {"source": "Switch by Event Type", "target": "Lead Handler", "source_output": "lead_handler", "target_input": "main"},
+    {"source": "Switch by Event Type", "target": "Support Handler", "source_output": "support_handler", "target_input": "main"},
+    {"source": "Switch by Event Type", "target": "Dead-Letter Queue", "source_output": "dead_letter", "target_input": "main"},
+    {"source": "Order Handler", "target": "Router Summary"},
+    {"source": "Lead Handler", "target": "Router Summary"},
+    {"source": "Support Handler", "target": "Router Summary"},
+    {"source": "Dead-Letter Queue", "target": "Router Summary"}
+  ],
+  "metadata": {
+    "pattern_number": 5,
+    "category": "routing",
+    "idempotency_notes": "Each event is processed exactly once per call. The event_id can be used downstream for idempotent processing (e.g., skip if order_id already processed).",
+    "retry_notes": "Dead-lettered events should be logged and periodically retried via a separate replay mechanism. Unknown event types may indicate an integration that needs a new handler registered."
+  }
+}

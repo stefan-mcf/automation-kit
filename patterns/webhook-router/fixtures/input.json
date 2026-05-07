@@ -1,0 +1,7 @@
+[
+  {"type": "order.created", "order_id": "ORD-123", "amount": 99.95},
+  {"type": "lead.captured", "name": "Alice", "email": "alice@example.com"},
+  {"type": "ticket.created", "ticket_id": "TK-456", "priority": "high"},
+  {"type": "unknown.action", "foo": "bar"},
+  {"foo": "bar"}
+]

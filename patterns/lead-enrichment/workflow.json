@@ -1,0 +1,61 @@
+{
+  "name": "Lead Enrichment",
+  "description": "Enrich raw leads with firmographic data from lead database. Marks unknown domains for manual research.",
+  "nodes": [
+    {
+      "name": "Webhook Input",
+      "type": "n8n-nodes-base.webhook",
+      "position": [0, 0],
+      "parameters": {
+        "path": "lead-enrich",
+        "method": "POST",
+        "options": {}
+      }
+    },
+    {
+      "name": "Enrichment Lookup",
+      "type": "n8n-nodes-base.function",
+      "position": [300, 0],
+      "parameters": {
+        "functionCode": "// Enrich each lead against the lead database by domain\nconst enriched = [];\nlet enrichedCount = 0;\nlet needsResearch = 0;\n\nfor (const lead of $input.all()) {\n  const domain = lead.json.domain;\n  const enrichment = $mockClients.leadDatabase.enrich(domain);\n  \n  if (enrichment) {\n    enriched.push({\n      ...enrichment,\n      contact_name: lead.json.contact_name,\n      email: lead.json.email,\n      enrichment_status: 'enriched'\n    });\n    enrichedCount++;\n  } else {\n    enriched.push({\n      domain,\n      contact_name: lead.json.contact_name,\n      email: lead.json.email,\n      enrichment_status: 'needs_research'\n    });\n    needsResearch++;\n  }\n}\n\nreturn enriched.map(item => ({ json: item }));"
+      }
+    },
+    {
+      "name": "CRM Update",
+      "type": "n8n-nodes-base.function",
+      "position": [600, -100],
+      "parameters": {
+        "functionCode": "// Update CRM with enriched leads\nconst crmRecords = $input.all()\n  .filter(item => item.json.enrichment_status === 'enriched')\n  .map(item => ({\n    email: item.json.email,\n    company: item.json.company,\n    industry: item.json.industry,\n    contact_role: item.json.contact_role\n  }));\n\nreturn crmRecords.map(r => ({ json: r }));"
+      }
+    },
+    {
+      "name": "Research Queue",
+      "type": "n8n-nodes-base.function",
+      "position": [600, 100],
+      "parameters": {
+        "functionCode": "// Route needs_research leads to manual research queue\nconst needsResearch = $input.all()\n  .filter(item => item.json.enrichment_status === 'needs_research')\n  .map(item => item.json);\n\nreturn needsResearch.map(r => ({ json: r }));"
+      }
+    },
+    {
+      "name": "Summary Output",
+      "type": "n8n-nodes-base.function",
+      "position": [900, 0],
+      "parameters": {
+        "functionCode": "// Generate summary\nconst enrichedLeads = $input.all();\nreturn [{\n  json: {\n    enriched_leads: enrichedLeads,\n    total: enrichedLeads.length,\n    enriched: enrichedLeads.filter(l => l.json.enrichment_status === 'enriched').length,\n    needs_research: enrichedLeads.filter(l => l.json.enrichment_status === 'needs_research').length\n  }\n}];"
+      }
+    }
+  ],
+  "connections": [
+    {"source": "Webhook Input", "target": "Enrichment Lookup"},
+    {"source": "Enrichment Lookup", "target": "CRM Update", "source_output": "main", "target_input": "main"},
+    {"source": "Enrichment Lookup", "target": "Research Queue", "source_output": "main", "target_input": "main"},
+    {"source": "CRM Update", "target": "Summary Output"},
+    {"source": "Research Queue", "target": "Summary Output"}
+  ],
+  "metadata": {
+    "pattern_number": 3,
+    "category": "enrichment",
+    "privacy_notes": "No PII stored in enrichment results — contact_name and email passed through from input only.",
+    "data_quality_notes": "Unknown domains produce null enrichment fields; downstream systems must handle missing data gracefully."
+  }
+}

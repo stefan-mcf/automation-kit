@@ -1,0 +1,32 @@
+{
+  "alerts": [
+    {
+      "channel": "general",
+      "text": "[WARNING] Low Inventory: Widget A inventory is running low",
+      "severity": "warning"
+    },
+    {
+      "channel": "priority",
+      "text": "[CRITICAL] Failed Payment: Payment failed for Acme Corp",
+      "severity": "critical"
+    },
+    {
+      "channel": "priority",
+      "text": "[CRITICAL] High Priority Support: Urgent support ticket T-123 requires immediate attention",
+      "severity": "critical"
+    },
+    {
+      "channel": "general",
+      "text": "[INFO] Deployment Success: api deployed successfully",
+      "severity": "info"
+    }
+  ],
+  "suppressed": [
+    {
+      "event_type": "low_inventory",
+      "severity": "warning",
+      "reason": "duplicate"
+    }
+  ],
+  "total": 5
+}

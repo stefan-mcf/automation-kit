@@ -1,0 +1,83 @@
+{
+  "name": "Email Parser + AI",
+  "description": "Ingest incoming emails, classify intent using keyword-based AI classifier, route to the appropriate queue (support/sales/billing/spam/human_review), and output the classification result.",
+  "nodes": [
+    {
+      "name": "Email Trigger",
+      "type": "trigger",
+      "position": [0, 0],
+      "parameters": {
+        "polling_interval": 60,
+        "protocol": "IMAP",
+        "max_emails_per_poll": 50
+      }
+    },
+    {
+      "name": "AI Classify",
+      "type": "aiClassifier",
+      "position": [250, 0],
+      "parameters": {
+        "model": "deterministic-keyword",
+        "confidence_threshold": 0.6,
+        "intents": [
+          "support",
+          "sales",
+          "billing",
+          "spam",
+          "human_review"
+        ],
+        "fields_to_analyze": ["subject", "body"]
+      }
+    },
+    {
+      "name": "Route Switch",
+      "type": "switch",
+      "position": [500, 0],
+      "parameters": {
+        "field": "queue",
+        "routing_rules": {
+          "support": "Support Queue",
+          "sales": "Sales Queue",
+          "billing": "Billing Queue",
+          "spam": "Spam Folder",
+          "human_review": "Manual Review"
+        }
+      }
+    },
+    {
+      "name": "Output",
+      "type": "output",
+      "position": [750, 0],
+      "parameters": {
+        "format": "json",
+        "include_fields": ["id", "intent", "confidence", "queue", "summary"]
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": "Email Trigger",
+      "target": "AI Classify",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "AI Classify",
+      "target": "Route Switch",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Route Switch",
+      "target": "Output",
+      "source_output": "main",
+      "target_input": "main"
+    }
+  ],
+  "metadata": {
+    "author": "Automation Kit",
+    "version": "1.0.0",
+    "category": "email",
+    "tags": ["email", "classification", "routing", "n8n", "ai"]
+  }
+}

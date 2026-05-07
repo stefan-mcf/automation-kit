@@ -1,0 +1,24 @@
+{
+  "product_name": "LumaSip Travel Bottle",
+  "category": "premium insulated travel bottle",
+  "target_audience": "busy commuters and eco-conscious travelers",
+  "campaign_goal": "launch a clean ecommerce creative pack for a new colorway",
+  "brand_voice": "clean, confident, eco-conscious",
+  "source_images": [
+    "placeholder://studio-front",
+    "placeholder://lifestyle-side"
+  ],
+  "required_aspect_ratios": [
+    "1:1",
+    "4:5",
+    "16:9"
+  ],
+  "negative_prompt_constraints": [
+    "no medical claims",
+    "no competitor logos",
+    "no distorted hands",
+    "no unreadable text",
+    "no fake certifications"
+  ],
+  "manual_approval_target": "marketing_manager"
+}

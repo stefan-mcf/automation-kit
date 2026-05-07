@@ -1,0 +1,29 @@
+{
+  "requested_slot": {
+    "date": "2025-06-15",
+    "start_time": "14:00",
+    "end_time": "15:00",
+    "timezone": "America/New_York"
+  },
+  "attendee": {
+    "name": "Jane Doe",
+    "email": "jane@example.com"
+  },
+  "existing_events": [
+    {
+      "summary": "Existing Meeting",
+      "start": "2025-06-15T14:00:00-04:00",
+      "end": "2025-06-15T15:00:00-04:00"
+    },
+    {
+      "summary": "Morning Standup",
+      "start": "2025-06-15T09:00:00-04:00",
+      "end": "2025-06-15T09:30:00-04:00"
+    },
+    {
+      "summary": "Lunch Break",
+      "start": "2025-06-15T12:00:00-04:00",
+      "end": "2025-06-15T13:00:00-04:00"
+    }
+  ]
+}

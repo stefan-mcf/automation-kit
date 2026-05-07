@@ -1,0 +1,157 @@
+{
+  "normalized_brief": {
+    "product_name": "LumaSip Travel Bottle",
+    "category": "premium insulated travel bottle",
+    "target_audience": "busy commuters and eco-conscious travelers",
+    "campaign_goal": "launch a clean ecommerce creative pack for a new colorway",
+    "brand_voice": "clean, confident, eco-conscious",
+    "source_images": [
+      "placeholder://studio-front",
+      "placeholder://lifestyle-side"
+    ],
+    "required_aspect_ratios": [
+      "1:1",
+      "4:5",
+      "16:9"
+    ],
+    "negative_prompt_constraints": [
+      "no medical claims",
+      "no competitor logos",
+      "no distorted hands",
+      "no unreadable text",
+      "no fake certifications"
+    ],
+    "manual_approval_target": "marketing_manager"
+  },
+  "prompt_pack": [
+    {
+      "prompt_id": "prompt-01",
+      "aspect_ratio": "1:1",
+      "positive_prompt": "LumaSip Travel Bottle premium insulated travel bottle, studio hero shot on a warm neutral background, for busy commuters and eco-conscious travelers, campaign goal: launch a clean ecommerce creative pack for a new colorway, brand voice: clean, confident, eco-conscious, photorealistic product lighting, crisp detail, ecommerce-ready",
+      "negative_prompt": "no medical claims, no competitor logos, no distorted hands, no unreadable text, no fake certifications",
+      "source_image_refs": [
+        "placeholder://studio-front",
+        "placeholder://lifestyle-side"
+      ]
+    },
+    {
+      "prompt_id": "prompt-02",
+      "aspect_ratio": "4:5",
+      "positive_prompt": "LumaSip Travel Bottle premium insulated travel bottle, vertical social ad composition with lifestyle context, for busy commuters and eco-conscious travelers, campaign goal: launch a clean ecommerce creative pack for a new colorway, brand voice: clean, confident, eco-conscious, photorealistic product lighting, crisp detail, ecommerce-ready",
+      "negative_prompt": "no medical claims, no competitor logos, no distorted hands, no unreadable text, no fake certifications",
+      "source_image_refs": [
+        "placeholder://studio-front",
+        "placeholder://lifestyle-side"
+      ]
+    },
+    {
+      "prompt_id": "prompt-03",
+      "aspect_ratio": "16:9",
+      "positive_prompt": "LumaSip Travel Bottle premium insulated travel bottle, wide website banner with clean negative space for copy, for busy commuters and eco-conscious travelers, campaign goal: launch a clean ecommerce creative pack for a new colorway, brand voice: clean, confident, eco-conscious, photorealistic product lighting, crisp detail, ecommerce-ready",
+      "negative_prompt": "no medical claims, no competitor logos, no distorted hands, no unreadable text, no fake certifications",
+      "source_image_refs": [
+        "placeholder://studio-front",
+        "placeholder://lifestyle-side"
+      ]
+    }
+  ],
+  "comfyui_job_manifest": {
+    "mode": "mock",
+    "execute_live": false,
+    "requires_live_services": false,
+    "workflow_template": "comfyui_workflow_api.json",
+    "client_boundary": "deferred_to_tranche_9_or_later",
+    "jobs": [
+      {
+        "job_id": "comfyui-prompt-01",
+        "prompt_id": "prompt-01",
+        "aspect_ratio": "1:1",
+        "seed": 1599275512,
+        "steps": 28,
+        "cfg_scale": 6.5,
+        "sampler": "dpmpp_2m_sde",
+        "scheduler": "karras",
+        "source_image_refs": [
+          "placeholder://studio-front",
+          "placeholder://lifestyle-side"
+        ]
+      },
+      {
+        "job_id": "comfyui-prompt-02",
+        "prompt_id": "prompt-02",
+        "aspect_ratio": "4:5",
+        "seed": 2776355821,
+        "steps": 28,
+        "cfg_scale": 6.5,
+        "sampler": "dpmpp_2m_sde",
+        "scheduler": "karras",
+        "source_image_refs": [
+          "placeholder://studio-front",
+          "placeholder://lifestyle-side"
+        ]
+      },
+      {
+        "job_id": "comfyui-prompt-03",
+        "prompt_id": "prompt-03",
+        "aspect_ratio": "16:9",
+        "seed": 1079133358,
+        "steps": 28,
+        "cfg_scale": 6.5,
+        "sampler": "dpmpp_2m_sde",
+        "scheduler": "karras",
+        "source_image_refs": [
+          "placeholder://studio-front",
+          "placeholder://lifestyle-side"
+        ]
+      }
+    ]
+  },
+  "mock_assets": [
+    {
+      "asset_id": "asset-01-28f3dfbacd9d",
+      "job_id": "comfyui-prompt-01",
+      "aspect_ratio": "1:1",
+      "asset_uri": "mock://product-creative-pack/28f3dfbacd9d.png",
+      "file_created": false,
+      "approval_status": "pending_human_review"
+    },
+    {
+      "asset_id": "asset-02-f0257543714a",
+      "job_id": "comfyui-prompt-02",
+      "aspect_ratio": "4:5",
+      "asset_uri": "mock://product-creative-pack/f0257543714a.png",
+      "file_created": false,
+      "approval_status": "pending_human_review"
+    },
+    {
+      "asset_id": "asset-03-106f425f5e11",
+      "job_id": "comfyui-prompt-03",
+      "aspect_ratio": "16:9",
+      "asset_uri": "mock://product-creative-pack/106f425f5e11.png",
+      "file_created": false,
+      "approval_status": "pending_human_review"
+    }
+  ],
+  "review_packet": {
+    "review_owner": "marketing_manager",
+    "decision_required": "approve_revise_or_reject",
+    "summary": "Review 3 mock creative records for LumaSip Travel Bottle before any live generation or publishing.",
+    "items_to_review": [
+      "asset-01-28f3dfbacd9d",
+      "asset-02-f0257543714a",
+      "asset-03-106f425f5e11"
+    ],
+    "checklist": [
+      "Confirm prompts match product positioning and brand voice.",
+      "Check every negative prompt constraint is present.",
+      "Verify aspect ratios cover ecommerce, paid social, and web banner use.",
+      "Confirm mock assets are placeholders, not generated client deliverables.",
+      "Do not publish, send, or use live ComfyUI until a human approves."
+    ],
+    "prompt_count": 3
+  },
+  "approval_required": true,
+  "publish_action": "blocked_until_human_approval",
+  "delivery_action": "none",
+  "live_service_used": false
+}

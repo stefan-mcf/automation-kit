@@ -1,0 +1,83 @@
+{
+  "name": "Slack/Teams Alert Pipeline",
+  "description": "Monitor events, deduplicate by (event_type, severity), route critical alerts to priority channel and info/warning to general channel, then send formatted Slack messages via MockSlackClient.",
+  "nodes": [
+    {
+      "name": "Monitor Trigger",
+      "type": "trigger",
+      "position": [0, 0],
+      "parameters": {
+        "polling_interval": 30,
+        "source": "monitoring_system",
+        "max_events_per_poll": 100
+      }
+    },
+    {
+      "name": "Filter",
+      "type": "filter",
+      "position": [250, 0],
+      "parameters": {
+        "dedup_key": ["event_type", "severity"],
+        "severity_levels": ["info", "warning", "critical"],
+        "mode": "allow_all_filtered"
+      }
+    },
+    {
+      "name": "Format Message",
+      "type": "transform",
+      "position": [500, 0],
+      "parameters": {
+        "template": "[{severity.upper()}] {event_type_label}: {message}",
+        "channel_routing": {
+          "critical": "priority",
+          "warning": "general",
+          "info": "general"
+        },
+        "default_channel": "general"
+      }
+    },
+    {
+      "name": "Send Slack Mock",
+      "type": "webhook",
+      "position": [750, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "mock://slack/webhook",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body_template": {
+          "channel": "{{ channel }}",
+          "text": "{{ formatted_text }}",
+          "severity": "{{ severity }}"
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": "Monitor Trigger",
+      "target": "Filter",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Filter",
+      "target": "Format Message",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Format Message",
+      "target": "Send Slack Mock",
+      "source_output": "main",
+      "target_input": "main"
+    }
+  ],
+  "metadata": {
+    "author": "Automation Kit",
+    "version": "1.0.0",
+    "category": "alerts",
+    "tags": ["slack", "teams", "alerts", "monitoring", "deduplication", "n8n"]
+  }
+}

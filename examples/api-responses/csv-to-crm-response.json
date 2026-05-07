@@ -1,0 +1,59 @@
+{
+  "pattern_name": "csv-to-crm",
+  "status": "passed",
+  "output": {
+    "upserted_contacts": [
+      {
+        "email": "alice@acmecorp.com",
+        "name": "Alice Johnson",
+        "company": "Acme Corp Updated",
+        "phone": "+1-555-0105",
+        "source": "email",
+        "id": "e1a31d74"
+      },
+      {
+        "email": "bob@globex.io",
+        "name": "Bob Smith",
+        "company": "Globex Inc.",
+        "phone": "+1-555-0102",
+        "source": "referral",
+        "id": "13d8a2c6"
+      },
+      {
+        "email": "charlie@initech.org",
+        "name": "Charlie Brown",
+        "company": "Initech",
+        "phone": "+1-555-0103",
+        "source": "ad",
+        "id": "01049745"
+      },
+      {
+        "email": "diana@acmecorp.com",
+        "name": "Diana Prince",
+        "company": "Acme Corp",
+        "phone": "+1-555-0104",
+        "source": "event",
+        "id": "a40ad324"
+      },
+      {
+        "email": "eve@initech.org",
+        "name": "Eve Adams",
+        "company": "Initech",
+        "phone": "+1-555-0106",
+        "source": "partner",
+        "id": "cecb287c"
+      }
+    ],
+    "total": 6,
+    "deduped_count": 1
+  },
+  "validation_summary": {
+    "passed": true,
+    "fixture_name": "default",
+    "errors": [],
+    "input_received": true
+  },
+  "warnings": [],
+  "fixture_safe": true,
+  "live_services_used": false
+}

@@ -1,0 +1,45 @@
+sectors:
+  - sector_id: core-runtime
+    label: Core Runtime
+    status: active
+    description: Shared Automation Kit patterns, validation, CLI, API, and MCP controls.
+
+  - sector_id: api-webhook
+    label: API/Webhook Integration
+    status: planned
+    description: Thin spoke around API/webhook bridge case studies.
+
+  - sector_id: automation-debugging
+    label: Automation Debugging
+    status: planned
+    description: Broken workflow diagnosis, replay, and repair evidence.
+
+  - sector_id: data-platform
+    label: Data Platform Ops
+    status: planned
+    description: Sheets/Airtable/CRM cleanup, sync, and reporting.
+
+  - sector_id: marketing
+    label: Marketing Factory
+    status: planned
+    description: Lead capture, enrichment, CRM routing, campaign approval, and reporting.
+
+  - sector_id: content
+    label: Content Factory
+    status: planned
+    description: Brief intake, research, draft pipelines, review queues, and publishing handoff.
+
+  - sector_id: ecommerce
+    label: Ecommerce Factory
+    status: planned
+    description: Shopify-style events, product/customer/order operations, CRO reports, and store alerts.
+
+  - sector_id: finance-docs
+    label: Finance/Document Factory
+    status: planned
+    description: Document intake, extraction, validation, approval routing, and exports.
+
+  - sector_id: research-data
+    label: Research/Data Factory
+    status: planned
+    description: Ingestion, classification, monitoring, scoring, and recurring reports.

@@ -1,0 +1,8 @@
+{
+  "fixture_name": "default",
+  "input": {
+    "type": "order.created",
+    "order_id": "ORD-123",
+    "amount": 199.0
+  }
+}

@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.local
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated outputs
+output/
+generated/
+temp/
+tmp/
+
+# Sensitive local media
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.gif
+!docs/screenshots/
+!docs/screenshots/README.md
+!docs/screenshots/*.svg
+!docs/screenshots/*.png
+
+# Docker
+.docker/
+
+# Test artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage-*.xml
+*.log
+
+# Local planning and private client-draft docs
+docs/plans/
+docs/project-roadmap.md
+docs/review-checkpoint.md
+docs/backlog-spoke-promotion-queue.md
+docs/[uU][pP][wW][oO][rR][kK]/
+docs/[uU][pP][wW][oO][rR][kK]-[pP][oO][rR][tT][fF][oO][lL][iI][oO]-entry.md
+docs/*client-draft*.md
+docs/*checkpoint*.md
+docs/*spike*.md

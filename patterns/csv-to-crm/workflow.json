@@ -1,0 +1,74 @@
+{
+  "name": "CSV to CRM Sync",
+  "description": "Read leads from a CSV file, deduplicate by email, and upsert into CRM.",
+  "nodes": [
+    {
+      "name": "Read CSV",
+      "type": "readCSV",
+      "position": [0, 0],
+      "parameters": {
+        "filePath": "fixtures/input.csv",
+        "options": {}
+      }
+    },
+    {
+      "name": "Transform Fields",
+      "type": "transformFields",
+      "position": [250, 0],
+      "parameters": {
+        "dedupField": "email",
+        "dedupStrategy": "keepLast",
+        "fieldMapping": {
+          "name": "name",
+          "email": "email",
+          "company": "company",
+          "phone": "phone",
+          "source": "source"
+        }
+      }
+    },
+    {
+      "name": "CRM Upsert",
+      "type": "crmUpsert",
+      "position": [500, 0],
+      "parameters": {
+        "client": "MockCRMClient",
+        "batchSize": 10,
+        "matchField": "email"
+      }
+    },
+    {
+      "name": "Output Result",
+      "type": "outputResult",
+      "position": [750, 0],
+      "parameters": {
+        "includeFields": ["email", "name", "company", "source"]
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": "Read CSV",
+      "target": "Transform Fields",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Transform Fields",
+      "target": "CRM Upsert",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "CRM Upsert",
+      "target": "Output Result",
+      "source_output": "main",
+      "target_input": "main"
+    }
+  ],
+  "metadata": {
+    "pattern": "csv-to-crm",
+    "version": "1.0.0",
+    "tags": ["csv", "crm", "dedup", "sync"]
+  }
+}

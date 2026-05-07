@@ -1,0 +1,69 @@
+capabilities:
+  - capability_id: pattern.webhook-router.default
+    sector_id: core-runtime
+    kind: pattern
+    implementation: patterns/webhook-router
+    runnable: true
+    fixture_safe: true
+    live_services_used: false
+    description: Route typed webhook events and dead-letter unknown events.
+    evidence:
+      - EVIDENCE.md
+      - docs/pattern-index.md
+
+  - capability_id: pattern.csv-to-crm.default
+    sector_id: core-runtime
+    kind: pattern
+    implementation: patterns/csv-to-crm
+    runnable: true
+    fixture_safe: true
+    live_services_used: false
+    description: Normalize CSV rows into CRM-ready mock records.
+    evidence:
+      - EVIDENCE.md
+      - docs/pattern-index.md
+
+  - capability_id: pattern.lead-enrichment.default
+    sector_id: core-runtime
+    kind: pattern
+    implementation: patterns/lead-enrichment
+    runnable: true
+    fixture_safe: true
+    live_services_used: false
+    description: Enrich synthetic leads with deterministic firmographic fields.
+    evidence:
+      - EVIDENCE.md
+      - docs/pattern-index.md
+
+  - capability_id: spoke.api-webhook-bridge.shopify-order-to-airtable-slack
+    sector_id: api-webhook
+    kind: spoke
+    implementation: ../api-webhook-bridge
+    runnable: false
+    fixture_safe: true
+    live_services_used: false
+    description: Shopify-style order event to Airtable-style record and Slack-style audit notification.
+    evidence:
+      - docs/project-roadmap.md
+
+  - capability_id: spoke.automation-debugger.broken-webhook-replay
+    sector_id: automation-debugging
+    kind: spoke
+    implementation: ../automation-debugger
+    runnable: false
+    fixture_safe: true
+    live_services_used: false
+    description: Broken webhook diagnosis, replay, and client-readable fix report.
+    evidence:
+      - docs/project-roadmap.md
+
+  - capability_id: spoke.sheets-airtable-sync.dirty-sheet-to-upsert-report
+    sector_id: data-platform
+    kind: spoke
+    implementation: ../sheets-airtable-sync
+    runnable: false
+    fixture_safe: true
+    live_services_used: false
+    description: Dirty spreadsheet to validated Airtable-style upsert package and rejected-row report.
+    evidence:
+      - docs/project-roadmap.md

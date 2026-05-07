@@ -1,0 +1,55 @@
+{
+  "enriched_leads": [
+    {
+      "company": "Acme Corp",
+      "domain": "acmecorp.com",
+      "industry": "Manufacturing",
+      "size": "500-1000",
+      "region": "North America",
+      "contact_role": "CTO",
+      "source_url": "https://acmecorp.example.com",
+      "contact_name": "John Smith",
+      "email": "john@acmecorp.com",
+      "enrichment_status": "enriched"
+    },
+    {
+      "company": "Globex Inc.",
+      "domain": "globex.io",
+      "industry": "Software",
+      "size": "50-200",
+      "region": "Europe",
+      "contact_role": "VP Engineering",
+      "source_url": "https://globex.example.io",
+      "contact_name": "Jane Doe",
+      "email": "jane@globex.io",
+      "enrichment_status": "enriched"
+    },
+    {
+      "company": "Initech",
+      "domain": "initech.org",
+      "industry": "Technology",
+      "size": "200-500",
+      "region": "North America",
+      "contact_role": "CTO",
+      "source_url": "https://initech.example.org",
+      "contact_name": "Bill Lumbergh",
+      "email": "bill@initech.org",
+      "enrichment_status": "enriched"
+    },
+    {
+      "company": "Unknown Corp",
+      "domain": "unknowncorp.xyz",
+      "industry": null,
+      "size": null,
+      "region": null,
+      "contact_role": null,
+      "source_url": null,
+      "contact_name": "Alice Wonder",
+      "email": "alice@unknowncorp.xyz",
+      "enrichment_status": "needs_research"
+    }
+  ],
+  "total": 4,
+  "enriched": 3,
+  "needs_research": 1
+}

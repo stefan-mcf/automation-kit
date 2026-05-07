@@ -1,0 +1,84 @@
+{
+  "name": "Calendar Booking",
+  "description": "Accept booking requests via webhook, check calendar availability using timezone-aware conflict detection, create events on available slots, and send email confirmations to attendees.",
+  "nodes": [
+    {
+      "name": "Booking Webhook",
+      "type": "webhook",
+      "position": [0, 0],
+      "parameters": {
+        "method": "POST",
+        "path": "/book",
+        "response_mode": "json",
+        "options": {
+          "body_fields": ["requested_slot", "attendee"]
+        }
+      }
+    },
+    {
+      "name": "Availability Check",
+      "type": "action",
+      "position": [300, 0],
+      "parameters": {
+        "action": "check_availability",
+        "timezone_handling": "zoneinfo",
+        "suggest_alternatives": true,
+        "max_suggestions": 3
+      }
+    },
+    {
+      "name": "Create Event",
+      "type": "action",
+      "position": [600, 0],
+      "parameters": {
+        "action": "create_calendar_event",
+        "calendar_provider": "google",
+        "include_attendees": true,
+        "send_notifications": true
+      }
+    },
+    {
+      "name": "Send Confirmation",
+      "type": "action",
+      "position": [900, 0],
+      "parameters": {
+        "action": "send_email",
+        "template": "booking_confirmation",
+        "include_calendar_link": true
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": "Booking Webhook",
+      "target": "Availability Check",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Availability Check",
+      "target": "Create Event",
+      "source_output": "available",
+      "target_input": "main"
+    },
+    {
+      "source": "Availability Check",
+      "target": "Booking Webhook",
+      "source_output": "conflict",
+      "target_input": "response",
+      "condition": "conflict_exists"
+    },
+    {
+      "source": "Create Event",
+      "target": "Send Confirmation",
+      "source_output": "main",
+      "target_input": "main"
+    }
+  ],
+  "metadata": {
+    "author": "Automation Kit",
+    "version": "1.0.0",
+    "category": "scheduling",
+    "tags": ["calendar", "booking", "availability", "timezone", "n8n"]
+  }
+}

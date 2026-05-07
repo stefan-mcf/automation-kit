@@ -1,0 +1,6 @@
+{
+  "fixture_name": "default",
+  "input": {
+    "source": "synthetic-leads.csv"
+  }
+}
