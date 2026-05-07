@@ -113,6 +113,7 @@ The container entrypoint is `auto-kit`, so arguments after the image name are CL
 - [`docs/case-studies/automation-debugger.md`](docs/case-studies/automation-debugger.md) — public automation repair/debug case study relationship.
 - [`docs/screenshots/`](docs/screenshots/) — visual proof panels for CLI validation, pattern outputs, architecture, quality gates, and the case-study link.
 - [`docs/public-readiness.md`](docs/public-readiness.md) — public-surface safety checks and current gate status.
+- [`docs/first-linkable-set-audit.md`](docs/first-linkable-set-audit.md) — current public first-set status and next-sector gate.
 - [`EVIDENCE.md`](EVIDENCE.md) — latest verification command bundle.
 
 ## Evidence package
