@@ -1,6 +1,6 @@
-# Local Deployment Proof
+# Local Docker/API Runtime
 
-Automation Kit has a local only deployment proof for showing the API surface in Docker without creating accounts, cloud resources, paid infrastructure, or live external-service connections.
+Automation Kit can run its CLI and local API surface in Docker without creating accounts, cloud resources, paid infrastructure, or live external-service connections.
 
 ## Boundary
 
@@ -11,7 +11,7 @@ Automation Kit has a local only deployment proof for showing the API surface in 
 - `AUTO_KIT_USE_LIVE_SERVICES=false` by default;
 - healthcheck uses the local `/health` endpoint only.
 
-This is not a production deployment claim. It is a reproducible local proof that the FastAPI/OpenAPI wrapper can run inside the same container package used for CLI validation.
+This is not a production deployment claim. It is a reproducible local runtime check showing that the FastAPI/OpenAPI wrapper can run inside the same container package used for CLI validation.
 
 ## CLI container validation
 

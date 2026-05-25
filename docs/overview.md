@@ -1,62 +1,53 @@
 # Automation Kit Overview
 
-## What is Automation Kit?
+Automation Kit is a reusable automation pattern library. It packages common workflow shapes as low-code-style contracts, deterministic fixtures, and tested Python equivalents.
 
-Automation Kit is a low-code automation pattern library — a collection of reusable,
-well-tested workflow patterns that solve common business automation scenarios.
-Each pattern provides:
+## Core idea
 
-- A **declarative workflow definition** (`workflow.json`) describing inputs,
-  outputs, and processing nodes.
-- **Synthetic fixtures** (`fixtures/`) for repeatable, credential-free testing.
-- A **Python implementation** (`python/main.py`) with a standard `run()`
-  entrypoint.
-- A **test suite** (`python/test_<name>.py`) covering normal paths, edge cases,
-  and error handling.
+Each pattern answers four questions:
 
-## Design Principles
+1. What workflow is being modeled?
+2. What synthetic input proves the flow?
+3. What deterministic output should be produced?
+4. When should this stay in low-code vs move into Python?
 
-1. **Deterministic mocks over live APIs** — Every pattern uses mock clients
-   seeded for reproducibility. No real credentials, no flaky tests, no
-   rate-limit surprises.
-2. **Isolated patterns** — Each pattern is self-contained under
-   `patterns/<name>/`. No cross-pattern coupling.
-3. **CLI-first** — The `auto-kit` CLI discovers, validates, and runs patterns
-   from the terminal. No web UI, no background daemon.
-4. **Testable by default** — Every pattern ships with a test file. The
-   cross-pattern matrix (`tests/test_all_patterns.py`) auto-discovers all
-   patterns and validates their structure.
+## Included surfaces
 
-## Pattern Lifecycle
+- CLI: discover, validate, and run patterns.
+- Pattern contracts: `workflow.json` files for low-code-style review.
+- Python equivalents: deterministic `run()` implementations.
+- Fixtures: synthetic inputs and expected outputs.
+- Local API: fixture-safe FastAPI wrapper.
+- MCP: fixture-safe agent/tool control surface.
+- Docker: local container runtime for validation/API use.
 
-1. **Discover** — `auto-kit list-patterns` scans `patterns/` for directories
-   with `workflow.json`.
-2. **Validate** — `auto-kit validate <path>` checks file structure, workflow
-   JSON schema, and fixture completeness.
-3. **Run** — `auto-kit run <path>` loads fixtures, executes `python/main.py`,
-   and compares output to `expected_output.json`.
-4. **Test** — `pytest` runs both the cross-pattern matrix and per-pattern test
-   suites.
+## Pattern lifecycle
 
-## How Mock Clients Work
+1. Discover with `auto-kit list-patterns`.
+2. Validate with `auto-kit validate <path>`.
+3. Run with `auto-kit run <path>`.
+4. Test with `python -m pytest -q`.
+5. Package or promote into a companion case-study repo when the workflow becomes buyer/client-shaped.
 
-All mock clients live in `src/auto_kit/mock_clients.py` and use a shared
-deterministic seed (`AUTO_KIT_MOCK_SEED=42`). They return synthetic but
-realistic data — no network calls, no credentials, no side effects.
+## Safety model
+
+No shipped command needs real CRM records, Slack channels, inboxes, calendars, product photos, ComfyUI servers, paid APIs, or credentials.
+
+## How mock clients work
+
+All mock clients live in `src/auto_kit/mock_clients.py` and use a shared deterministic seed (`AUTO_KIT_MOCK_SEED=42`). They return synthetic but realistic data — no network calls, no credentials, no side effects.
 
 | Client | Purpose |
 |--------|---------|
 | `MockCRMClient` | Upsert and query CRM records |
-| `MockEmailClient` | Parse email text into structured fields |
-| `MockLeadDataClient` | Enrich company data by domain |
-| `MockCalendarClient` | Check availability and book slots |
-| `MockWebhookRouter` | Route typed payloads to handlers |
+| `MockEmailClient` | Send email previews |
 | `MockSlackClient` | Send formatted channel messages |
-| `MockTeamsClient` | Send adaptive card messages |
+| `MockCalendarClient` | Check availability and book slots |
+| `MockLeadDatabase` | Enrich company data by domain |
 
-## File Layout
+## File layout
 
-```
+```text
 automation-kit/
   Dockerfile
   pyproject.toml
@@ -72,20 +63,43 @@ automation-kit/
     pattern_runner.py
     mock_clients.py
     cli.py
+    api.py
+    mcp_server.py
+    capability_registry.py
+    comfyui_client.py
+    registry/
+      capabilities.yaml
+      sectors.yaml
   patterns/
-    csv-to-crm/     fixtures/ python/ workflow.json README.md
-    email-parser/   fixtures/ python/ workflow.json README.md
-    lead-enrichment/ fixtures/ python/ workflow.json README.md
-    calendar-booking/ fixtures/ python/ workflow.json README.md
-    webhook-router/  fixtures/ python/ workflow.json README.md
-    slack-alerts/    fixtures/ python/ workflow.json README.md
+    calendar-booking/    fixtures/ python/ workflow.json README.md
+    csv-to-crm/          fixtures/ python/ workflow.json README.md
+    email-parser/        fixtures/ python/ workflow.json README.md
+    lead-enrichment/     fixtures/ python/ workflow.json README.md
+    product-creative-pack/ fixtures/ python/ workflow.json README.md
+    slack-alerts/        fixtures/ python/ workflow.json README.md
+    webhook-router/      fixtures/ python/ workflow.json README.md
   tests/
-    test_workflow_schema.py
-    test_pattern_runner.py
     test_all_patterns.py
     test_cli.py
+    test_api.py
+    test_mcp_server.py
+    test_pattern_runner.py
+    test_workflow_schema.py
+    test_comfyui_client.py
+    test_capability_registry.py
+    test_executor_adoption.py
+    test_proof_package.py
   docs/
-    plans/
-    overview.md
     quickstart.md
+    pattern-index.md
+    architecture.md
+    api.md
+    mcp.md
+    deployment.md
+    overview.md
+    proof-spoke-architecture.md
+    case-studies/
+      api-webhook-bridge.md
+      automation-debugger.md
+    screenshots/
 ```

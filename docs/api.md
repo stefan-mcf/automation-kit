@@ -1,6 +1,6 @@
 # Automation Kit Local API
 
-Automation Kit includes a fixture-safe FastAPI wrapper for local proof runs. It is designed to make API/webhook work easier to show in external reviews without connecting live external-service credentials.
+Automation Kit includes a fixture-safe FastAPI wrapper for inspecting and running supported patterns through local HTTP endpoints.
 
 ## Safety boundary
 
@@ -51,7 +51,7 @@ Other patterns are listed for discovery but return a clean `400` response if run
 }
 ```
 
-The `input` field is accepted for API-shaped proof requests. Current shipped pattern implementations still run deterministic repository fixtures so local behavior is reproducible.
+The `input` field is accepted for API-shaped local requests. Current shipped pattern implementations still run deterministic repository fixtures so behavior remains reproducible.
 
 ## Response shape
 

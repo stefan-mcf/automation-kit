@@ -33,8 +33,8 @@ Use case-study docs when a reviewer needs one specific example instead of the wh
 
 Case studies stay fixture-safe by default and do not authorize live credentials or external delivery.
 
-## Companion proof repositories
+## Companion case-study repositories
 
-Automation Kit is the reusable pattern layer. Companion repositories are promoted only when they show a concrete workflow using this toolkit. Keep reusable runner logic here; keep workflow-shaped fixtures, outputs, case studies, and evidence notes in the spoke repo.
+Automation Kit is the reusable pattern layer. Companion repositories are promoted only when they apply this toolkit to a concrete workflow with fixtures, outputs, tests, and reviewable artifacts.
 
 See `docs/proof-spoke-architecture.md` for the spoke readiness contract and promotion order.

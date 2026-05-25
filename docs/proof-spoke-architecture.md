@@ -1,10 +1,10 @@
-     1|# Automation Kit Spoke Proof Architecture
+     1|# Automation Kit Companion Case-Study Architecture
      2|
      3|Date: 2026-05-06
      4|
      5|## Doctrine
      6|
-     7|Automation Kit is the reusable engine. The companion repositories are client-shaped proof projects that show Automation Kit applied to one workflow problem at a time.
+     7|Automation Kit is the reusable engine. The companion repositories are client-shaped case-study projects that show Automation Kit applied to one workflow problem at a time.
      8|
      9|This is intentional. The evidence should not look like seven unrelated half-frameworks. It should read as one tested automation toolkit plus a small set of focused case studies.
     10|
@@ -13,7 +13,7 @@
     13|| Layer | Role | What it proves |
     14||---|---|---|
     15|| `automation-kit` | Core framework | Reusable pattern runner, deterministic fixtures, validation, CLI/API surfaces, mock adapters, low-code-to-Python translation, tests, Docker, and evidence discipline. |
-    16|| Spoke proof repos | Client-shaped case studies | Stefan can take the reusable framework and apply it to a specific business workflow without live credentials or overbuilt scaffolding. |
+    16|| Companion case-study repos | Client-shaped case studies | Stefan can take the reusable framework and apply it to a specific business workflow without live credentials or overbuilt scaffolding. |
     17|
     18|## Active spoke set
     19|

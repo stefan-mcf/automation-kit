@@ -1,6 +1,6 @@
 # Architecture
 
-Automation Kit is a local-first automation pattern library. It is designed to show practical judgment across low-code automation, Python implementation, testing, and safety boundaries.
+Automation Kit is a local-first automation pattern library for modeling workflow contracts, deterministic fixtures, Python equivalents, and safe runtime surfaces in one place.
 
 ## System shape
 
@@ -19,6 +19,10 @@ src/auto_kit/
   fixtures.py            JSON, JSONL, and CSV fixture helpers
   mock_clients.py        deterministic third-party-style adapters
   comfyui_client.py      disabled-by-default ComfyUI boundary
+  api.py                 FastAPI local API
+  mcp_server.py          MCP stdio server
+  capability_registry.py sector/capability registry loading
+  registry/              packaged registry data
 ```
 
 ## Why pair low-code JSON with Python
@@ -40,9 +44,9 @@ No command needs real CRM records, Slack channels, inboxes, calendars, product p
 
 `product-creative-pack` includes a ComfyUI job manifest and prompt pack, but the normal run creates deterministic mock asset records and a human review packet. The shared `auto_kit.comfyui_client.ComfyUIClient` raises before any network call unless `AUTO_KIT_USE_LIVE_SERVICES=true` and `COMFYUI_BASE_URL` are explicitly supplied at runtime.
 
-This gives evidence evidence for image-generation workflow design without silently generating assets, spending cloud credits, or publishing unreviewed outputs.
+This gives reviewers concrete evidence for image-generation workflow design without silently generating assets, spending cloud credits, or publishing unreviewed outputs.
 
-## Evidence gates
+## Verification gates
 
 The repository is considered healthy when these commands pass from a clean checkout:
 
