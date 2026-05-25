@@ -171,6 +171,7 @@ See [`docs/case-studies/api-webhook-bridge.md`](docs/case-studies/api-webhook-br
 - [`docs/api.md`](docs/api.md) — local FastAPI/OpenAPI surface for fixture-safe pattern runs.
 - [`docs/mcp.md`](docs/mcp.md) — fixture-safe MCP surface and capability registry.
 - [`docs/deployment.md`](docs/deployment.md) — local Docker/API runtime, healthcheck, and cloud-free boundary.
+- [`docs/public-readiness.md`](docs/public-readiness.md) — public-surface audit criteria and release hygiene checks.
 - [`docs/proof-spoke-architecture.md`](docs/proof-spoke-architecture.md) — companion case-study architecture and readiness contract.
 - [`EVIDENCE.md`](EVIDENCE.md) — latest verification snapshot.
 
