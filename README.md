@@ -254,3 +254,7 @@ registry/
 ## License
 
 MIT License. See [`LICENSE`](LICENSE).
+
+## Automation Tools Catalog
+
+Part of [Stefan's automation tools catalog](https://github.com/stefan-mcf/automation-tools).
