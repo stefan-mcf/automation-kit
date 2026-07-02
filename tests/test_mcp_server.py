@@ -58,6 +58,19 @@ async def test_mcp_run_capability_runs_pattern_capability() -> None:
 
 
 @pytest.mark.asyncio
+async def test_mcp_run_capability_runs_social_listening_capability() -> None:
+    result = await mcp_server.run_capability(
+        capability_id="pattern.social-listening.default",
+        fixture_name="default",
+    )
+
+    assert result["capability_id"] == "pattern.social-listening.default"
+    assert result["status"] == "passed"
+    assert result["pattern_name"] == "social-listening"
+    assert result["output"]["priority_count"] == 2
+
+
+@pytest.mark.asyncio
 async def test_mcp_run_capability_reports_planned_spoke_without_execution() -> None:
     result = await mcp_server.run_capability(
         capability_id="spoke.api-webhook-bridge.shopify-order-to-airtable-slack",

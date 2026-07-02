@@ -26,7 +26,13 @@ def test_patterns_lists_discovered_patterns() -> None:
     assert response.status_code == 200
     body = response.json()
     names = {pattern["name"] for pattern in body["patterns"]}
-    assert {"webhook-router", "csv-to-crm", "lead-enrichment"}.issubset(names)
+    assert {"webhook-router", "csv-to-crm", "lead-enrichment", "social-listening"}.issubset(
+        names
+    )
+    social_listening = next(
+        pattern for pattern in body["patterns"] if pattern["name"] == "social-listening"
+    )
+    assert social_listening["api_run_enabled"] is True
     assert body["fixture_safe"] is True
     assert body["live_services_used"] is False
 
@@ -58,6 +64,22 @@ def test_run_supported_pattern_returns_validated_output_shape() -> None:
     assert isinstance(body["output"], dict)
     assert body["errors"] == []
     assert body["warnings"] == []
+
+
+def test_run_social_listening_returns_prioritized_mentions() -> None:
+    response = client.post(
+        "/patterns/social-listening/run",
+        json={"fixture_name": "default"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["pattern_name"] == "social-listening"
+    assert body["status"] == "passed"
+    assert body["output"]["matched_count"] == 3
+    assert body["output"]["priority_count"] == 2
+    assert body["fixture_safe"] is True
+    assert body["live_services_used"] is False
 
 
 def test_run_unknown_pattern_returns_404() -> None:

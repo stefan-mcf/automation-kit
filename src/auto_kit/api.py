@@ -13,7 +13,12 @@ from pydantic import BaseModel, Field, ValidationError
 
 from auto_kit.pattern_runner import discover_patterns, load_workflow_json, run_pattern_module
 
-SUPPORTED_API_RUN_PATTERNS = {"webhook-router", "csv-to-crm", "lead-enrichment"}
+SUPPORTED_API_RUN_PATTERNS = {
+    "webhook-router",
+    "csv-to-crm",
+    "lead-enrichment",
+    "social-listening",
+}
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PATTERNS_ROOT = REPO_ROOT / "patterns"
 SAFE_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
