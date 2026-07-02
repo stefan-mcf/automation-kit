@@ -1,4 +1,4 @@
-"""Cross-pattern test matrix — discovers and validates all shipped patterns."""
+"""Cross-pattern test matrix - discovers and validates all shipped patterns."""
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ EXPECTED_PATTERNS = {
     "lead-enrichment",
     "product-creative-pack",
     "slack-alerts",
+    "social-listening",
     "webhook-router",
 }
 
@@ -20,12 +21,12 @@ EXPECTED_PATTERNS = {
 class TestAllPatterns:
     """Automatically discover and test every pattern in the repository."""
 
-    def test_exactly_seven_patterns_are_discovered(self) -> None:
+    def test_exactly_eight_patterns_are_discovered(self) -> None:
         patterns = discover_patterns()
         names = {p.name for p in patterns}
 
         assert names == EXPECTED_PATTERNS
-        assert len(patterns) == 7
+        assert len(patterns) == 8
 
     def test_each_pattern_validates_without_issues(self) -> None:
         for pattern_path in discover_patterns():

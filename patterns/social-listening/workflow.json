@@ -1,0 +1,69 @@
+{
+  "name": "Social Listening Triage",
+  "description": "Read a fixture-safe batch of social mentions, match configured keywords, score engagement, and return priority follow-ups for review.",
+  "nodes": [
+    {
+      "name": "Mention Batch",
+      "type": "trigger",
+      "position": [0, 0],
+      "parameters": {
+        "source": "xquik_export_fixture",
+        "fixture_only": true,
+        "max_mentions_per_batch": 100
+      }
+    },
+    {
+      "name": "Keyword Match",
+      "type": "filter",
+      "position": [250, 0],
+      "parameters": {
+        "mode": "case_insensitive_any_keyword",
+        "fields": ["text"]
+      }
+    },
+    {
+      "name": "Score Engagement",
+      "type": "transform",
+      "position": [500, 0],
+      "parameters": {
+        "formula": "likes + reposts",
+        "priority_threshold_field": "monitor.min_engagement"
+      }
+    },
+    {
+      "name": "Review Queue",
+      "type": "output",
+      "position": [750, 0],
+      "parameters": {
+        "destination": "fixture_review_queue",
+        "live_delivery": false
+      }
+    }
+  ],
+  "connections": [
+    {
+      "source": "Mention Batch",
+      "target": "Keyword Match",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Keyword Match",
+      "target": "Score Engagement",
+      "source_output": "main",
+      "target_input": "main"
+    },
+    {
+      "source": "Score Engagement",
+      "target": "Review Queue",
+      "source_output": "main",
+      "target_input": "main"
+    }
+  ],
+  "metadata": {
+    "author": "Automation Kit",
+    "version": "1.0.0",
+    "category": "social-monitoring",
+    "tags": ["social-listening", "mentions", "triage", "xquik", "fixture-safe"]
+  }
+}

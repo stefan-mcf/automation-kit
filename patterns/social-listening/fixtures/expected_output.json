@@ -1,0 +1,35 @@
+{
+  "pattern": "social-listening",
+  "fixture_safe": true,
+  "live_services_used": false,
+  "monitor": "Launch Mentions",
+  "matched_count": 3,
+  "priority_count": 2,
+  "alerts": [
+    {
+      "id": "tw_001",
+      "author": "devrel",
+      "engagement": 27,
+      "matched_keywords": ["xquik", "openapi"],
+      "priority": true,
+      "url": "https://x.com/devrel/status/1001"
+    },
+    {
+      "id": "tw_003",
+      "author": "analyst",
+      "engagement": 11,
+      "matched_keywords": ["xquik"],
+      "priority": false,
+      "url": "https://x.com/analyst/status/1003"
+    },
+    {
+      "id": "tw_004",
+      "author": "founder",
+      "engagement": 66,
+      "matched_keywords": ["xquik", "openapi"],
+      "priority": true,
+      "url": "https://x.com/founder/status/1004"
+    }
+  ],
+  "summary": "3 matching mentions, 2 priority follow-ups"
+}

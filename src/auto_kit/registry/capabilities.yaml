@@ -35,6 +35,18 @@ capabilities:
       - EVIDENCE.md
       - docs/pattern-index.md
 
+  - capability_id: pattern.social-listening.default
+    sector_id: core-runtime
+    kind: pattern
+    implementation: patterns/social-listening
+    runnable: true
+    fixture_safe: true
+    live_services_used: false
+    description: Match exported social mentions and prioritize review follow-ups.
+    evidence:
+      - EVIDENCE.md
+      - docs/pattern-index.md
+
   - capability_id: spoke.api-webhook-bridge.shopify-order-to-airtable-slack
     sector_id: api-webhook
     kind: spoke

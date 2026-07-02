@@ -1,0 +1,41 @@
+{
+  "monitor": {
+    "name": "Launch Mentions",
+    "keywords": ["xquik", "openapi"],
+    "min_engagement": 25
+  },
+  "mentions": [
+    {
+      "id": "tw_001",
+      "author": "devrel",
+      "text": "Trying Xquik OpenAPI search for social monitoring.",
+      "likes": 18,
+      "reposts": 9,
+      "url": "https://x.com/devrel/status/1001"
+    },
+    {
+      "id": "tw_002",
+      "author": "builder",
+      "text": "Need a crawler for image generation workflows.",
+      "likes": 40,
+      "reposts": 3,
+      "url": "https://x.com/builder/status/1002"
+    },
+    {
+      "id": "tw_003",
+      "author": "analyst",
+      "text": "xquik mcp endpoint helped compare social API alternatives.",
+      "likes": 7,
+      "reposts": 4,
+      "url": "https://x.com/analyst/status/1003"
+    },
+    {
+      "id": "tw_004",
+      "author": "founder",
+      "text": "OpenAPI and MCP automation with Xquik is getting useful.",
+      "likes": 52,
+      "reposts": 14,
+      "url": "https://x.com/founder/status/1004"
+    }
+  ]
+}

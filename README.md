@@ -2,7 +2,7 @@
 
 Reusable automation patterns with low-code contracts, deterministic fixtures, and tested Python implementations.
 
-Automation Kit helps turn common business workflows — CRM imports, webhook routing, email triage, lead enrichment, calendar booking, Slack alerts, and creative-asset preparation — into repeatable automation patterns that can be inspected, tested, and run locally before connecting real services.
+Automation Kit helps turn common business workflows, including CRM imports, webhook routing, email triage, lead enrichment, calendar booking, Slack alerts, social listening, and creative-asset preparation, into repeatable automation patterns that can be inspected, tested, and run locally before connecting real services.
 
 Each pattern includes:
 
@@ -37,14 +37,15 @@ Automation Kit is not a hosted SaaS app and does not connect to live third-party
 | 5 | `webhook-router` | Third-party event fan-out and dead-letter routing | Typed handler result or dead-letter queue item |
 | 6 | `slack-alerts` | Ops alerts and team notifications | Severity-routed mock Slack messages |
 | 7 | `product-creative-pack` | Ecommerce creative asset preparation | Prompt pack, ComfyUI manifest, mock assets, review packet |
+| 8 | `social-listening` | Social mention triage and review prioritization | Keyword matches, engagement scores, priority follow-ups |
 
 Every pattern lives under `patterns/<name>/` with:
 
-- `workflow.json` — declarative workflow structure.
-- `fixtures/` — synthetic inputs plus `expected_output.json`.
-- `python/main.py` — runnable Python equivalent.
-- `python/test_*.py` — pattern-specific regression tests.
-- `README.md` — implementation notes and automation fit.
+- `workflow.json` - declarative workflow structure.
+- `fixtures/` - synthetic inputs plus `expected_output.json`.
+- `python/main.py` - runnable Python equivalent.
+- `python/test_*.py` - pattern-specific regression tests.
+- `README.md` - implementation notes and automation fit.
 
 See [`docs/pattern-index.md`](docs/pattern-index.md) for inputs, outputs, fit, and live-service boundaries for every pattern.
 
@@ -65,7 +66,7 @@ auto-kit run patterns/csv-to-crm
 Expected validation result:
 
 ```text
-7 pattern(s): 7 passed, 0 failed
+8 pattern(s): 8 passed, 0 failed
 ```
 
 Source-checkout module invocation also works without installing the console script:
@@ -159,21 +160,21 @@ Automation Kit is the reusable pattern layer. Companion case-study repositories 
 
 Public companion case studies include:
 
-- [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) — safe API/webhook builds with validation, mapping, idempotency, audit, and dead-letter behavior.
-- [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) — broken automation diagnosis, normalized event inspection, safe replay/refusal, and fix reports.
+- [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) - safe API/webhook builds with validation, mapping, idempotency, audit, and dead-letter behavior.
+- [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) - broken automation diagnosis, normalized event inspection, safe replay/refusal, and fix reports.
 
 See [`docs/case-studies/api-webhook-bridge.md`](docs/case-studies/api-webhook-bridge.md) and [`docs/case-studies/automation-debugger.md`](docs/case-studies/automation-debugger.md) for the Automation Kit relationship.
 
 ## Documentation
 
-- [`docs/pattern-index.md`](docs/pattern-index.md) — inputs, outputs, automation value, and fit for every pattern.
-- [`docs/architecture.md`](docs/architecture.md) — package boundaries, runtime flow, and live-service isolation.
-- [`docs/api.md`](docs/api.md) — local FastAPI/OpenAPI surface for fixture-safe pattern runs.
-- [`docs/mcp.md`](docs/mcp.md) — fixture-safe MCP surface and capability registry.
-- [`docs/deployment.md`](docs/deployment.md) — local Docker/API runtime, healthcheck, and cloud-free boundary.
-- [`docs/public-readiness.md`](docs/public-readiness.md) — public-surface audit criteria and release hygiene checks.
-- [`docs/proof-spoke-architecture.md`](docs/proof-spoke-architecture.md) — companion case-study architecture and readiness contract.
-- [`EVIDENCE.md`](EVIDENCE.md) — latest verification snapshot.
+- [`docs/pattern-index.md`](docs/pattern-index.md) - inputs, outputs, automation value, and fit for every pattern.
+- [`docs/architecture.md`](docs/architecture.md) - package boundaries, runtime flow, and live-service isolation.
+- [`docs/api.md`](docs/api.md) - local FastAPI/OpenAPI surface for fixture-safe pattern runs.
+- [`docs/mcp.md`](docs/mcp.md) - fixture-safe MCP surface and capability registry.
+- [`docs/deployment.md`](docs/deployment.md) - local Docker/API runtime, healthcheck, and cloud-free boundary.
+- [`docs/public-readiness.md`](docs/public-readiness.md) - public-surface audit criteria and release hygiene checks.
+- [`docs/proof-spoke-architecture.md`](docs/proof-spoke-architecture.md) - companion case-study architecture and readiness contract.
+- [`EVIDENCE.md`](EVIDENCE.md) - latest verification snapshot.
 
 ## Evidence package
 
