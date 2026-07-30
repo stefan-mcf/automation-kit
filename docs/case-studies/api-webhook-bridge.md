@@ -2,7 +2,7 @@
 
 [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) is a public companion case study built on Automation Kit. It applies the reusable webhook-routing and fixture-safety patterns to a concrete FastAPI bridge with mapped outputs, idempotency, audit logs, dead-letter handling, OpenAPI docs, sandbox responses, and screenshots.
 
-## What it proves
+## Engineering controls
 
 - HubSpot-like contact -> Airtable-style upsert.
 - Shopify-like order -> Slack-style ops alert plus CRM note.

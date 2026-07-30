@@ -2,7 +2,7 @@
 
 [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) is a public companion case study built on Automation Kit conventions. It applies fixture-safe automation patterns to broken Zapier, Make, n8n, webhook, and API-bridge-style events: normalize the payload, classify the failure, decide whether replay is safe, and generate reviewer-readable fix evidence.
 
-## What it proves
+## Engineering controls
 
 - Malformed-date diagnosis with corrected local replay.
 - Missing required field, duplicate event, wrong destination, unknown event type, invalid signature, retry-loop, and rate-limit refusal paths.
