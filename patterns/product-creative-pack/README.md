@@ -4,7 +4,7 @@ Product Creative Pack is a mock-first ecommerce creative automation pattern. It 
 
 The default path does not generate images. Visual asset generation requires an approved GPT image generation path in HD mode or an explicitly approved live ComfyUI path. The committed pattern remains fixture-only and deterministic.
 
-## What it proves
+## Workflow controls
 
 - Product brief validation with required fields and source-image placeholders.
 - Prompt generation for multiple ecommerce aspect ratios.

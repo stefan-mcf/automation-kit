@@ -3,7 +3,7 @@
 Enrich raw leads (company name, domain, contact info) with firmographic data
 from a lead database. Handles known and unknown domains gracefully.
 
-## What It Does
+## Capabilities
 
 1. Accepts a list of leads with `company`, `domain`, `contact_name`, `email`
 2. Looks up each domain in the lead database (`MockLeadDatabase.enrich()`)

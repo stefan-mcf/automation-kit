@@ -4,7 +4,7 @@ Route incoming webhook payloads by event type to type-specific handlers.
 Unrouteable payloads (unknown type, missing type field, missing required fields)
 are directed to a dead-letter queue for later inspection and replay.
 
-## What It Does
+## Capabilities
 
 1. Accepts a list of webhook payload dicts, each with a `type` field
 2. Routes known event types to dedicated handlers:
