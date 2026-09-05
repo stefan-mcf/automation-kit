@@ -14,6 +14,8 @@ Each pattern includes:
 
 The repo is safe to run from a clean checkout: all shipped examples use synthetic data, mock clients, and disabled-by-default live service boundaries.
 
+**Role:** pattern design, Python implementation, tests and operating documentation. **Status:** an SM Systems reference toolkit with local examples; live integrations require project-specific configuration and acceptance testing.
+
 ## What this is for
 
 Use Automation Kit when you need to:
@@ -257,4 +259,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Automation Tools Catalog
 
-Part of [Stefan's automation tools catalog](https://github.com/stefan-mcf/automation-tools).
+Part of [Stefan's systems and automation portfolio](https://github.com/stefan-mcf#supporting-tools).
