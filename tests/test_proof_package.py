@@ -100,7 +100,7 @@ def test_case_study_visual_title_is_professional_and_reproducible() -> None:
     assert "Public case-study link" not in readme
     assert "Case-study link proof" not in readme
     assert "### Case study" not in readme
-    assert "Case study proof" in readme
+    assert "docs/screenshots/README.md" in readme
     assert "Case study proof" in screenshots
     assert "CASE_STUDY_PANEL_TITLE = \"Case Studies\"" in renderer
     assert "05-case-study-link.png" in renderer

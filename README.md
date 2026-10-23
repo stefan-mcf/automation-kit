@@ -1,56 +1,22 @@
 # Automation Kit
 
-Reusable automation patterns with low-code contracts, deterministic fixtures, and tested Python implementations.
+Reusable workflow contracts and tested Python implementations for imports, webhook routing, email triage, booking and alerts. Inspect and exercise the same bounded patterns through CLI, API or MCP.
 
-Automation Kit helps turn common business workflows — CRM imports, webhook routing, email triage, lead enrichment, calendar booking, Slack alerts, and creative-asset preparation — into repeatable automation patterns that can be inspected, tested, and run locally before connecting real services.
+**Status:** local reference toolkit with synthetic fixtures and mock clients.
 
-Each pattern includes:
+**My contribution:** pattern contracts, capability registry, Python services, tool interfaces, tests and operating documentation.
 
-- a low-code-style `workflow.json` contract
-- synthetic fixtures and expected output
-- a deterministic Python implementation
-- regression tests
-- notes on when to keep the workflow in n8n/Make/Zapier versus when to move logic into code
+[Pattern index](docs/pattern-index.md) · [Architecture](docs/architecture.md) · [MCP interface](docs/mcp.md)
 
-The repo is safe to run from a clean checkout: all shipped examples use synthetic data, mock clients, and disabled-by-default live service boundaries.
+## How it works
 
-**Role:** pattern design, Python implementation, tests and operating documentation. **Status:** an SM Systems reference toolkit with local examples; live integrations require project-specific configuration and acceptance testing.
+Each pattern contains a `workflow.json` contract, synthetic inputs, expected output, a Python implementation and regression tests. The registry separates discoverable capabilities from the smaller set enabled for API/MCP execution.
 
-## What this is for
+Seven patterns cover CRM import, email parsing, lead enrichment, calendar booking, webhook routing, Slack alerts and creative-asset preparation. The [pattern index](docs/pattern-index.md) documents inputs, outputs and low-code versus Python fit.
 
-Use Automation Kit when you need to:
+The framework supplies the reusable layer for [API Webhook Bridge](https://github.com/stefan-mcf/api-webhook-bridge) and [Automation Debugger](https://github.com/stefan-mcf/automation-debugger). Those repos remain focused on their integration and diagnosis contracts.
 
-- turn a messy workflow idea into a repeatable automation pattern
-- compare low-code and Python implementations before choosing a delivery path
-- test CRM, webhook, email, calendar, Slack, enrichment, or creative workflows without live credentials
-- package reusable automation logic for companion case-study repositories
-- expose fixture-safe automation capabilities through CLI, API, Docker, or MCP
-
-Automation Kit is not a hosted SaaS app and does not connect to live third-party accounts by default.
-
-## Included automation patterns
-
-| # | Pattern | Workflow problem | Output |
-|---|---------|-----------------|--------|
-| 1 | `csv-to-crm` | Import, normalize, dedupe, and upsert lead rows | Mock CRM upsert summary |
-| 2 | `email-parser` | Classify inbound emails into support, sales, billing, spam, or review queues | Routed classification result |
-| 3 | `lead-enrichment` | Enrich B2B prospect data with firmographic records | Firmographic records and manual-research flags |
-| 4 | `calendar-booking` | Booking requests and availability checks | Event decision and confirmation message |
-| 5 | `webhook-router` | Third-party event fan-out and dead-letter routing | Typed handler result or dead-letter queue item |
-| 6 | `slack-alerts` | Ops alerts and team notifications | Severity-routed mock Slack messages |
-| 7 | `product-creative-pack` | Ecommerce creative asset preparation | Prompt pack, ComfyUI manifest, mock assets, review packet |
-
-Every pattern lives under `patterns/<name>/` with:
-
-- `workflow.json` — declarative workflow structure.
-- `fixtures/` — synthetic inputs plus `expected_output.json`.
-- `python/main.py` — runnable Python equivalent.
-- `python/test_*.py` — pattern-specific regression tests.
-- `README.md` — implementation notes and automation fit.
-
-See [`docs/pattern-index.md`](docs/pattern-index.md) for inputs, outputs, fit, and live-service boundaries for every pattern.
-
-## Quick start
+## Usage
 
 Requires Python 3.11+.
 
@@ -58,140 +24,25 @@ Requires Python 3.11+.
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
-
 auto-kit list-patterns
 auto-kit validate-all
 auto-kit run patterns/csv-to-crm
 ```
 
-Expected validation result:
+The supplied pattern validation returns `7 pattern(s): 7 passed, 0 failed`.
 
-```text
-7 pattern(s): 7 passed, 0 failed
-```
+Start the API with `uvicorn auto_kit.api:app --host 127.0.0.1 --port 8000`; local health and OpenAPI documentation are at `/health` and `/docs`.
 
-Source-checkout module invocation also works without installing the console script:
+For MCP, run `auto-kit mcp-validate` or `auto-kit mcp-serve`. The server uses the official MCP Python SDK 2.x over stdio. The transport regression starts a real subprocess, initializes the client, discovers tools and checks allowed and rejected fixture executions.
 
-```bash
-PYTHONPATH=src python -m auto_kit.cli validate-all
-```
-
-## How to use it
-
-### Use the CLI
-
-```bash
-auto-kit list-patterns
-auto-kit validate patterns/webhook-router
-auto-kit run patterns/webhook-router
-```
-
-### Run the local API
-
-```bash
-PYTHONPATH=src uvicorn auto_kit.api:app --host 127.0.0.1 --port 8000
-curl -fsS http://127.0.0.1:8000/health
-curl -fsS http://127.0.0.1:8000/patterns
-```
-
-OpenAPI docs are available at `http://127.0.0.1:8000/docs`.
-
-### Run the MCP surface
-
-```bash
-auto-kit mcp-validate
-auto-kit mcp-serve
-```
-
-### Run in Docker
+Docker is also available:
 
 ```bash
 docker build -t automation-kit .
 docker run --rm automation-kit validate-all
 ```
 
-## How a pattern is structured
-
-Every pattern follows the same contract:
-
-```text
-patterns/<name>/
-  workflow.json              low-code-style workflow contract
-  README.md                  workflow fit, boundaries, and implementation notes
-  fixtures/
-    input.*                  synthetic input data
-    expected_output.json     expected deterministic result
-  python/
-    main.py                  runnable Python equivalent
-    test_<name>.py           pattern-specific regression tests
-```
-
-The repository validates this structure through `auto-kit validate-all` and `tests/test_all_patterns.py`.
-
-## Choosing low-code vs Python
-
-Automation Kit is designed for the decision point before implementation:
-
-- If the workflow is simple, visual, and owned by non-developers, keep it in n8n, Make, or Zapier.
-- If it needs validation, deduplication, replay safety, CI, or auditability, move the risky logic into tested Python.
-- If it needs both, keep the workflow contract visible and test the risky logic locally.
-
-Automation Kit keeps both views visible: `workflow.json` explains the low-code flow, while `python/main.py` proves the same logic can run deterministically under tests.
-
-## Safety model
-
-Automation Kit is safe to run from a clean checkout:
-
-- all shipped data is synthetic
-- mock clients are used by default
-- live services require explicit environment opt-in
-- `.env.example` contains empty credential placeholders
-- API and MCP responses report `fixture_safe=true` and `live_services_used=false`
-- ComfyUI/network calls are disabled unless `AUTO_KIT_USE_LIVE_SERVICES=true` and a local endpoint are explicitly supplied
-
-### ComfyUI boundary
-
-The `product-creative-pack` pattern models an ecommerce creative workflow: product brief, prompt pack, ComfyUI job manifest, deterministic mock assets, and a human review packet. It does not generate images by default.
-
-Live ComfyUI calls are isolated behind `auto_kit.comfyui_client.ComfyUIClient`, which raises before any network operation unless `AUTO_KIT_USE_LIVE_SERVICES=true` and `COMFYUI_BASE_URL` are supplied in the local runtime environment.
-
-## Companion case studies
-
-Automation Kit is the reusable pattern layer. Companion case-study repositories apply the same pattern discipline to one concrete workflow problem at a time.
-
-Public companion case studies include:
-
-- [`api-webhook-bridge`](https://github.com/stefan-mcf/api-webhook-bridge) — safe API/webhook builds with validation, mapping, idempotency, audit, and dead-letter behavior.
-- [`automation-debugger`](https://github.com/stefan-mcf/automation-debugger) — broken automation diagnosis, normalized event inspection, safe replay/refusal, and fix reports.
-
-See [`docs/case-studies/api-webhook-bridge.md`](docs/case-studies/api-webhook-bridge.md) and [`docs/case-studies/automation-debugger.md`](docs/case-studies/automation-debugger.md) for the Automation Kit relationship.
-
-## Documentation
-
-- [`docs/pattern-index.md`](docs/pattern-index.md) — inputs, outputs, automation value, and fit for every pattern.
-- [`docs/architecture.md`](docs/architecture.md) — package boundaries, runtime flow, and live-service isolation.
-- [`docs/api.md`](docs/api.md) — local FastAPI/OpenAPI surface for fixture-safe pattern runs.
-- [`docs/mcp.md`](docs/mcp.md) — fixture-safe MCP surface and capability registry.
-- [`docs/deployment.md`](docs/deployment.md) — local Docker/API runtime, healthcheck, and cloud-free boundary.
-- [`docs/public-readiness.md`](docs/public-readiness.md) — public-surface audit criteria and release hygiene checks.
-- [`docs/proof-spoke-architecture.md`](docs/proof-spoke-architecture.md) — companion case-study architecture and readiness contract.
-- [`EVIDENCE.md`](EVIDENCE.md) — latest verification snapshot.
-
-## Evidence package
-
-These screenshots show the current CLI validation, pattern outputs, architecture, quality gates, and companion case-study relationship.
-
-[![CLI validation proof](docs/screenshots/01-cli-validation.png)](docs/screenshots/01-cli-validation.png)
-
-[![Pattern output proof](docs/screenshots/02-pattern-output.png)](docs/screenshots/02-pattern-output.png)
-
-[![Architecture proof](docs/screenshots/03-architecture.png)](docs/screenshots/03-architecture.png)
-
-[![Quality gate proof](docs/screenshots/04-quality-gates.png)](docs/screenshots/04-quality-gates.png)
-
-[![Case study proof](docs/screenshots/05-case-study-link.png)](docs/screenshots/05-case-study-link.png)
-
-## Quality gates
+## Validation
 
 ```bash
 python -m pytest -q
@@ -199,64 +50,24 @@ python -m ruff check .
 python -m mypy src
 PYTHONPATH=src python -m auto_kit.cli validate-all
 PYTHONPATH=src python -m auto_kit.cli mcp-validate
-docker build -t automation-kit:local .
-docker run --rm automation-kit:local validate-all
 ```
 
-## Environment
+Run `python -m pytest -q tests/test_mcp_transport.py` to isolate the protocol-level check. It complements the direct handler tests.
 
-See `.env.example`:
+## Scope and current state
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `AUTO_KIT_USE_LIVE_SERVICES` | `false` | Explicit opt-in gate for live API clients. |
-| `AUTO_KIT_MOCK_SEED` | `42` | Seed for deterministic mock data. |
-| `COMFYUI_BASE_URL` | empty | Optional local or cloud ComfyUI base URL. |
-| `COMFY_CLOUD_API_KEY` | empty | Optional Comfy Cloud key supplied only outside git. |
+Shipped examples use synthetic data and mock clients. API/MCP outputs report `fixture_safe=true` and `live_services_used=false`. Only allowlisted patterns are runnable through these interfaces.
 
-## Repository layout
+Live ComfyUI use requires both `AUTO_KIT_USE_LIVE_SERVICES=true` and an explicit endpoint; the creative pattern does not generate images by default. See [.env.example](.env.example) and the [deployment guide](docs/deployment.md) before supplying local configuration.
 
-```text
-src/auto_kit/
-  api.py
-  capability_registry.py
-  cli.py
-  comfyui_client.py
-  fixtures.py
-  mcp_server.py
-  mock_clients.py
-  models.py
-  pattern_runner.py
-  registry/
-  workflow_schema.py
-patterns/
-  <pattern-name>/
-    workflow.json
-    README.md
-    fixtures/
-    python/
-docs/
-  architecture.md
-  api.md
-  case-studies/
-  deployment.md
-  mcp.md
-  pattern-index.md
-  proof-spoke-architecture.md
-  screenshots/
-examples/
-  api-requests/
-  api-responses/
-  mcp/
-registry/
-  capabilities.yaml
-  sectors.yaml
-```
+This is a toolkit, not a hosted service or a general autonomous agent. Development-agent workflow examples are separate from runtime tool execution.
 
-## License
+## Documentation
 
-MIT License. See [`LICENSE`](LICENSE).
+- [Pattern index](docs/pattern-index.md) and [architecture](docs/architecture.md)
+- [API](docs/api.md), [MCP](docs/mcp.md) and [deployment](docs/deployment.md)
+- [Companion architecture](docs/proof-spoke-architecture.md)
+- [API Bridge case study](docs/case-studies/api-webhook-bridge.md) and [Debugger case study](docs/case-studies/automation-debugger.md)
+- [Verification index](EVIDENCE.md), [historical generated panels](docs/screenshots/README.md) and [readiness checks](docs/public-readiness.md)
 
-## Automation Tools Catalog
-
-Part of [Stefan's systems and automation portfolio](https://github.com/stefan-mcf#supporting-tools).
+MIT. See [LICENSE](LICENSE).

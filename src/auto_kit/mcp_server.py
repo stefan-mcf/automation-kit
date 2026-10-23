@@ -13,9 +13,9 @@ from auto_kit.pattern_runner import discover_patterns, run_pattern_module
 from auto_kit.pattern_runner import validate_pattern as validate_path
 
 try:  # pragma: no cover - import availability is environment-specific.
-    FastMCP: Any = import_module("mcp.server.fastmcp").FastMCP
+    MCPServer: Any = import_module("mcp.server").MCPServer
 except Exception:  # pragma: no cover
-    FastMCP = None
+    MCPServer = None
 
 
 REGISTRY = CapabilityRegistry.load_default
@@ -270,9 +270,9 @@ async def get_evidence_index(
 def build_server() -> Any:
     """Build the stdio MCP server for Automation Kit."""
 
-    if FastMCP is None:
-        raise RuntimeError("mcp package with FastMCP support is required")
-    server = FastMCP("automation-kit")
+    if MCPServer is None:
+        raise RuntimeError("mcp 2.x with MCPServer support is required")
+    server = MCPServer("automation-kit")
     tools: list[Callable[..., Any]] = [
         health,
         list_patterns,

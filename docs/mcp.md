@@ -37,6 +37,22 @@ Sectors are registry/routing metadata. Tool names stay stable verbs so agents do
 
 ## Local commands
 
+The server uses the official MCP Python SDK 2.x (`mcp>=2.0.0,<3`) and
+`mcp.server.MCPServer`. SDK 2 renamed the earlier FastMCP surface; an unbounded
+v1 dependency previously allowed a fresh install that could not start the
+server. See the [official SDK](https://github.com/modelcontextprotocol/python-sdk).
+
+The transport regression starts the real server as a stdio subprocess,
+initializes a client, lists tools, reads health, runs the allowed webhook
+fixture and checks rejection of a non-enabled pattern:
+
+```bash
+python -m pytest -q tests/test_mcp_transport.py
+```
+
+This tests the SDK client/server stdio path. It does not establish compatibility
+with every host or verify HTTP transports. Direct handler tests remain separate.
+
 ```bash
 PYTHONPATH=src python -m auto_kit.cli mcp-validate
 PYTHONPATH=src python -m auto_kit.cli mcp-serve
