@@ -64,6 +64,7 @@ This is a toolkit, not a hosted service or a general autonomous agent. Developme
 
 ## Documentation
 
+- [Agent-assisted engineering workflow](docs/engineering-workflow.md)
 - [Pattern index](docs/pattern-index.md) and [architecture](docs/architecture.md)
 - [API](docs/api.md), [MCP](docs/mcp.md) and [deployment](docs/deployment.md)
 - [Companion architecture](docs/proof-spoke-architecture.md)
