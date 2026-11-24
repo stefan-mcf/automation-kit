@@ -8,6 +8,10 @@ Reusable workflow contracts and tested Python implementations for imports, webho
 
 [Pattern index](docs/pattern-index.md) · [Architecture](docs/architecture.md) · [MCP interface](docs/mcp.md)
 
+## Six rows become five contacts
+
+The [sample CSV](patterns/csv-to-crm/fixtures/input.csv) repeats one email with updated contact details. The importer keeps the later values and produces five mock contacts, with one duplicate recorded in the [expected output](patterns/csv-to-crm/fixtures/expected_output.json). After [setup](#usage), run `auto-kit run patterns/csv-to-crm` to check the fixture against that output.
+
 ## How it works
 
 Each pattern contains a `workflow.json` contract, synthetic inputs, expected output, a Python implementation and regression tests. The registry separates discoverable capabilities from the smaller set enabled for API/MCP execution.
