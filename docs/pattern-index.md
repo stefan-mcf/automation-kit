@@ -35,6 +35,6 @@ Case studies stay fixture-safe by default and do not authorize live credentials 
 
 ## Companion case-study repositories
 
-Automation Kit is the reusable pattern layer. Companion repositories are promoted only when they apply this toolkit to a concrete workflow with fixtures, outputs, tests, and reviewable artifacts.
+Companion repositories provide concrete workflows with fixtures, tests and reviewable outputs.
 
-See `docs/proof-spoke-architecture.md` for the spoke readiness contract and promotion order.
+See [companion architecture](proof-spoke-architecture.md) for repository roles and validation.
